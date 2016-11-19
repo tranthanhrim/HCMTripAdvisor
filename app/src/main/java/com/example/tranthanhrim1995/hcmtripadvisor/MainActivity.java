@@ -94,6 +94,9 @@ public class MainActivity extends AppCompatActivity
             var code1 = new Code('from Mine');
             var code2 = new Code('from Mine');
 
+            var code123 = new Code('from Mine');
+            var code1123 = new Code('from Mine');
+            var code2123 = new Code('from Mine');
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
@@ -105,5 +108,12 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    function newFuntionByBao() {
+        var code = new Code('from Mine');
+        var code1 = new Code('from Mine');
+        var code2 = new Code('from Mine');
+        return;
     }
 }

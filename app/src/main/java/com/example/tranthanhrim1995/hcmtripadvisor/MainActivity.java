@@ -74,6 +74,11 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    function newFunction() {
+        var code = new Code('from Mine');
+        return code;
+    }
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -85,6 +90,9 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
+            var code = new Code('from Mine');
+            var code1 = new Code('from Mine');
+            var code2 = new Code('from Mine');
 
         } else if (id == R.id.nav_manage) {
 

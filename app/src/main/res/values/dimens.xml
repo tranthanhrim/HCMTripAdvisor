@@ -6,4 +6,34 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <array name="list_icon_main_screen_menu">
+        <item>@drawable/ic_home_near_me_now</item>
+        <item>@drawable/ic_home_hotels</item>
+        <item>@drawable/ic_home_flights</item>
+        <item>@drawable/ic_home_restaurants</item>
+        <item>@drawable/ic_home_things_to_do</item>
+        <item>@drawable/ic_guide_icon_circle</item>
+        <item>@drawable/ic_home_forums</item>
+    </array>
+    <string-array name="list_label_main_screen_menu">
+        <item>Near Me Now</item>
+        <item>Hotels</item>
+        <item>Flights</item>
+        <item>Restaurants</item>
+        <item>Things to Do</item>
+        <item>Destination Guides</item>
+        <item>Forum</item>
+    </string-array>
+
+    <array name="list_icon_things_to_do">
+        <item>@drawable/cuchitunnel</item>
+        <item>@drawable/cuchitunnel</item>
+        <item>@drawable/cuchitunnel</item>
+    </array>
+    <string-array name="list_label_things_to_do">
+        <item>Cu Chi Tunnels</item>
+        <item>Cu Chi Tunnels</item>
+        <item>Cu Chi Tunnels</item>
+    </string-array>
+
 </resources>

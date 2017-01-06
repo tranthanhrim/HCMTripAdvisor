@@ -4,6 +4,19 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="Green">#589442</color>
-    <color name="White">#ffffff</color>
+
     <color name="Black">#000000</color>
+    <color name="LightBlack">#303030</color>
+
+    <color name="White">#ffffff</color>
+    <color name="LightWhite">#F5F5F5</color>
+
+    <color name="Gray">#747474</color>
+    <color name="LightGray">#B0B0B0</color>
+
+    <color name="Orange">#FF7B29</color>
+
+    <!--Color for tutorial-->
+    <color name="year">#999999</color>
+    <color name="title">#222222</color>
 </resources>

@@ -51,7 +51,11 @@ public class MainFragment extends Fragment {
         lvMainScreenMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                if (position == 4) {
+                if (position == 3) {
+                    fragmentManager.beginTransaction().replace(R.id.container,
+                            FragmentFactory.getInstance().getGroupedThingsToDoFragment()).commit();
+                }
+                else if (position == 4) {
                     fragmentManager.beginTransaction().replace(R.id.container,
                             FragmentFactory.getInstance().getThingsToDoFragment()).commit();
                 }

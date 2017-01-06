@@ -23,4 +23,22 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="text_16_grey">
+        <item name="android:textSize">@dimen/text_16</item>
+        <item name="android:textColor">@color/Gray</item>
+    </style>
+    <style name="text_14_grey">
+        <item name="android:textSize">@dimen/text_14</item>
+        <item name="android:textColor">@color/Gray</item>
+    </style>
+    <style name="text_12_light_grey">
+        <item name="android:textSize">@dimen/text_12</item>
+        <item name="android:textColor">@color/LightGray</item>
+    </style>
+
+    <style name="text_16_light_white">
+        <item name="android:textSize">@dimen/text_16</item>
+        <item name="android:textColor">@color/LightWhite</item>
+    </style>
+
 </resources>

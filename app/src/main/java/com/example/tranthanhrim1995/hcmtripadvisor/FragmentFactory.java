@@ -3,6 +3,7 @@ package com.example.tranthanhrim1995.hcmtripadvisor;
 import com.example.tranthanhrim1995.hcmtripadvisor.Fragment.DetailThingFragment;
 import com.example.tranthanhrim1995.hcmtripadvisor.Fragment.GroupedThingsToDoFragment;
 import com.example.tranthanhrim1995.hcmtripadvisor.Fragment.MainFragment;
+import com.example.tranthanhrim1995.hcmtripadvisor.Fragment.NearMeNowFragment;
 import com.example.tranthanhrim1995.hcmtripadvisor.Fragment.ThingsToDoFragment;
 
 /**
@@ -15,6 +16,7 @@ public class FragmentFactory {
     private ThingsToDoFragment thingsToDoFragment;
     private GroupedThingsToDoFragment groupedThingsToDoFragment;
     private DetailThingFragment detailThingFragment;
+    private NearMeNowFragment nearMeNowFragment;
 
     private static FragmentFactory instance = null;
 
@@ -23,6 +25,7 @@ public class FragmentFactory {
         setThingsToDoFragment(new ThingsToDoFragment());
         setGroupedThingsToDoFragment(new GroupedThingsToDoFragment());
         setDetailThingFragment(new DetailThingFragment());
+        setNearMeNowFragment(new NearMeNowFragment());
     }
 
     public static FragmentFactory getInstance() {
@@ -62,5 +65,13 @@ public class FragmentFactory {
 
     public void setDetailThingFragment(DetailThingFragment detailThingFragment) {
         this.detailThingFragment = detailThingFragment;
+    }
+
+    public NearMeNowFragment getNearMeNowFragment() {
+        return nearMeNowFragment;
+    }
+
+    public void setNearMeNowFragment(NearMeNowFragment nearMeNowFragment) {
+        this.nearMeNowFragment = nearMeNowFragment;
     }
 }

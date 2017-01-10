@@ -11,6 +11,7 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp">
 
+        <!--Buttons Header-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
@@ -18,22 +19,24 @@
             android:gravity="center_vertical">
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="30dp"
+                android:layout_height="20dp"
                 android:layout_weight="0.33"
                 android:src="@drawable/icon_map"/>
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="30dp"
+                android:layout_height="20dp"
                 android:layout_weight="0.33"
                 android:src="@drawable/ic_check_mark"/>
+
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="30dp"
+                android:layout_height="20dp"
                 android:layout_weight="0.33"
                 android:src="@drawable/save_search_green_hollow_heart"/>
 
         </LinearLayout>
 
+        <!--Images-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="180dp"
@@ -65,7 +68,30 @@
 
             </LinearLayout>
         </LinearLayout>
-        
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/text_14_grey"
+                android:text="See all images"/>
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/icon_near_photo"
+                android:layout_marginLeft="10dp"/>
+
+        </LinearLayout>
+
+        <!--Information-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -84,6 +110,7 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical">
                 <RatingBar
+                    android:id="@+id/rbRateDetail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="?android:attr/ratingBarStyleSmall"
@@ -107,10 +134,159 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/text_12_light_grey"
+                    android:textColor="@color/LightGray"
+                    android:textSize="@dimen/text_14"
                     android:text="Hours Today: 7:00 AM - 6:00 PM"/>
 
             </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/DarkRed"
+                android:textSize="@dimen/text_14"
+                android:text="Price: 1.000.000 ~ 3.000.000 VND"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/text_14_grey"
+                android:layout_marginTop="10dp"
+                android:text="The tunnels of Củ Chi are an immense network of connecting underground tunnels located in the Củ Chi District of Ho Chi Minh City (Saigon), Vietnam, and are part of a much larger network of tunnels that underlie much of the country. The Củ Chi tunnels were the location of several military campaigns during the Vietnam War, and were the Viet Cong's base of operations for the Tết Offensive in 1968."/>
+
+        </LinearLayout>
+
+        <!--Hotels-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50px"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="5dp"
+            android:gravity="center_vertical">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/icon_hotels_no_background"
+                android:layout_marginRight="10dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/text_16_grey"
+                android:text="Hotels"/>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="15dp"
+                android:src="@drawable/green_chevron_right"
+                android:layout_marginRight="5dp"/>
+
+        </LinearLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvHotelDetailThing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"/>
+
+        <!--Food-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50px"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="5dp"
+            android:gravity="center_vertical">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/inverted_food_drink"
+                android:layout_marginRight="10dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/text_16_grey"
+                android:text="Foods"/>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="15dp"
+                android:src="@drawable/green_chevron_right"
+                android:layout_marginRight="5dp"/>
+
+        </LinearLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvFoodDetailThing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"/>
+
+        <!--Review-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50px"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="5dp"
+            android:gravity="center_vertical">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/icon_home_nav_write_a_review"
+                android:layout_marginRight="10dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/text_16_grey"
+                android:text="Reviews"/>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="15dp"
+                android:src="@drawable/green_chevron_right"
+                android:layout_marginRight="5dp"/>
+
+        </LinearLayout>
+
+        <!--Comment-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50px"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="5dp"
+            android:gravity="center_vertical">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_comment_outline"
+                android:layout_marginRight="10dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/text_16_grey"
+                android:text="Comments"/>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="15dp"
+                android:src="@drawable/green_chevron_right"
+                android:layout_marginRight="5dp"/>
 
         </LinearLayout>
 

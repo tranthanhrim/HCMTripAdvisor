@@ -57,11 +57,14 @@ public class MainFragment extends Fragment {
                 }
                 if (position == 3) {
                     fragmentManager.beginTransaction().replace(R.id.container,
-                            FragmentFactory.getInstance().getGroupedThingsToDoFragment()).commit();
+                            FragmentFactory.getInstance().getNearMeFragment()).addToBackStack(null).commit();
                 }
                 else if (position == 4) {
                     fragmentManager.beginTransaction().replace(R.id.container,
-                            FragmentFactory.getInstance().getThingsToDoFragment()).commit();
+                            FragmentFactory.getInstance().getGroupedThingsToDoFragment()).addToBackStack(null).commit();
+                } else if (position == 5) {
+                    fragmentManager.beginTransaction().replace(R.id.container,
+                            (Fragment)FragmentFactory.getInstance().getMapThingFragment()).addToBackStack(null).commit();
                 }
             }
         });

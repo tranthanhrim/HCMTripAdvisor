@@ -16,6 +16,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.tranthanhrim1995.hcmtripadvisor.Fragment.MainFragment;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -30,7 +32,7 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+        final ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
@@ -40,15 +42,46 @@ public class MainActivity extends AppCompatActivity
 
         fragmentManager.beginTransaction().replace(R.id.container,
                 FragmentFactory.getInstance().getMainFragment()).commit();
+
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this).build();
+        ImageLoader.getInstance().init(config);
+
+        //Change menu icon to back icon
+        final View.OnClickListener originalToolbarListener = toggle.getToolbarNavigationClickListener();
+        getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+            @Override
+            public void onBackStackChanged() {
+                if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                    toggle.setDrawerIndicatorEnabled(false);
+                    toggle.setToolbarNavigationClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            getSupportFragmentManager().popBackStack();
+                        }
+                    });
+                } else {
+                    toggle.setDrawerIndicatorEnabled(true);
+                    toggle.setToolbarNavigationClickListener(originalToolbarListener);
+                }
+            }
+        });
     }
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
+//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+//        if (drawer.isDrawerOpen(GravityCompat.START)) {
+//            drawer.closeDrawer(GravityCompat.START);
+//        } else {
+//            super.onBackPressed();
+//        }
+        int count = getSupportFragmentManager().getBackStackEntryCount();
+
+        if (count == 0) {
             super.onBackPressed();
+            //additional code
+        } else {
+            getSupportFragmentManager().popBackStack();
         }
     }
 

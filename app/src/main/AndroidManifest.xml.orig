@@ -3,10 +3,13 @@
     package="com.example.tranthanhrim1995.hcmtripadvisor">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+<<<<<<< Updated upstream
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+=======
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+>>>>>>> Stashed changes
 
     <application
         android:allowBackup="true"
@@ -14,6 +17,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBphNQUq3hjS1_pe0oeedYzaGbNd08rgFk" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -24,10 +30,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+<<<<<<< Updated upstream
+        <!--<meta-data-->
+            <!--android:name="com.google.android.gms.version"-->
+            <!--android:value="@integer/google_play_services_version" />-->
+=======
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyA6z2P2cktvQrWFswN3_WPKf9a63CHlI6w"/>
+>>>>>>> Stashed changes
     </application>
 
 </manifest>

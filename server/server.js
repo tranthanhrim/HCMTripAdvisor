@@ -91,7 +91,7 @@ app.post('/users', function(req, res) {
 });
 
 //DELETE
-apiRoutes.delete('/users/:ma', function(req, res) {
+app.delete('/users/:ma', function(req, res) {
     User.remove({
         _ma: req.params.ma
     }, function(err) {
@@ -104,7 +104,7 @@ apiRoutes.delete('/users/:ma', function(req, res) {
 });
 
 //EDIT
-apiRoutes.put('/users/:ma', function(req, res) {
+app.put('/users/:ma', function(req, res) {
 
     var _email = req.body.email;
     var _userName = req.body.userName;

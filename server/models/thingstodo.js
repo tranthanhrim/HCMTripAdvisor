@@ -18,7 +18,7 @@ var thingsToDoSchema = mongoose.Schema({
 		type: String
 	},
 	_image: {
-		type: Array
+		type: String
 	},
 	_grade: {
 		type: Number

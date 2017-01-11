@@ -7,8 +7,10 @@ var imageSchema = mongoose.Schema({
 		required: true
 	},
 	_link:{
-		type: String,
-		required: true
+		type: Array
+	},
+	_thumnailLink:{
+		type: String
 	}
 });
 

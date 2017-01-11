@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "765783698810",
+    "project_id": "hcmtripadvisor"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:765783698810:android:1c9aec63308324c4",
+        "android_client_info": {
+          "package_name": "com.example.tranthanhrim1995.hcmtripadvisor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "765783698810-vvektke32hpgsrms8e6ljvn51k94cci4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tranthanhrim1995.hcmtripadvisor",
+            "certificate_hash": "A29895109E4AF8C20EECE28239ED6A686338FDFF"
+          }
+        },
+        {
+          "client_id": "765783698810-3l32cu3lhjr3mvo7vmvu1441ervl813f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbB21Gi1rSdTFJXb80m6S2jenQQzxhY9Q"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

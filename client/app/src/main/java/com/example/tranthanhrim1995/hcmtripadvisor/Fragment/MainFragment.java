@@ -3,6 +3,7 @@ package com.example.tranthanhrim1995.hcmtripadvisor.Fragment;
 
 import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
@@ -16,13 +17,17 @@ import com.example.tranthanhrim1995.hcmtripadvisor.Adapter.MainScreenMenuAdapter
 import com.example.tranthanhrim1995.hcmtripadvisor.FragmentFactory;
 import com.example.tranthanhrim1995.hcmtripadvisor.ItemAdapter.ItemMainScreenMenu;
 import com.example.tranthanhrim1995.hcmtripadvisor.R;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MainFragment extends Fragment {
+public class MainFragment extends Fragment{
 
     FragmentManager fragmentManager;
     ListView lvMainScreenMenu;
@@ -71,5 +76,4 @@ public class MainFragment extends Fragment {
 
         return mainFragment;
     }
-
 }

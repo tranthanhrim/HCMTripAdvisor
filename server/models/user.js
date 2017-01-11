@@ -19,6 +19,9 @@ var userSchema = mongoose.Schema({
 	},
 	_rateID: {
 		type: Number
+	},
+	_avatar: {
+		type: String
 	}
 });
 

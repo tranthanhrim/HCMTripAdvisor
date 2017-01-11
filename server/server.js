@@ -63,6 +63,88 @@ app.get('/details', function(req, res) {
     });
 });
 
+//---------User API--------
+//ADD
+app.post('/users', function(req, res) {
+
+    // create a sample user
+    var user = new User({
+        _ma: req.body.ma,
+        _email: req.body.email,
+        _userName: req.body.userName,
+        _avatar: req.body.avatar
+    });
+
+    // save the user
+    user.save(function(err) {
+        if (err) {
+            res.status(400).json({
+                'error': 'bad request'
+            });
+        }
+
+        console.log('User saved successfully');
+        res.status(201).send({
+            'message': 'user created'
+        });
+    });
+});
+
+//DELETE
+apiRoutes.delete('/users/:ma', function(req, res) {
+    User.remove({
+        _ma: req.params.ma
+    }, function(err) {
+        if (!err) {
+            console.log('remove user successfull');
+        } else {
+            console.log(error);
+        }
+    });
+});
+
+//EDIT
+apiRoutes.put('/users/:ma', function(req, res) {
+
+    var _email = req.body.email;
+    var _userName = req.body.userName;
+    var _avatar = req.body.avatar;
+
+
+    User.findOne({
+        _ma: req.params.ma
+    }, function(err, user) {
+
+        if (err) throw err;
+
+        if (user) {
+            user._email = _email;
+            user._userName = _userName;
+            user._avatar = _avatar;
+
+
+            user.save(function(err, user1) {
+                if (err) {
+                    res.status(400).send({
+                        'error': 'Bad request (The data is invalid)'
+                    });
+                    return console.error(err);
+                } else {
+                    User.find(function(err, users) {
+                        res.status(200).send({
+                            'messege': 'Updated'
+                        });
+                    });
+                }
+            });
+        } else {
+            res.status(404).send({
+                'messege': 'Not found'
+            });
+        }
+    });
+});
+
 
 var port = process.env.PORT || 3000;
 app.listen(port);

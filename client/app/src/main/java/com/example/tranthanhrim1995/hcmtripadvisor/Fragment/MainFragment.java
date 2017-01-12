@@ -58,7 +58,7 @@ public class MainFragment extends Fragment{
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 if (position == 0){
                     fragmentManager.beginTransaction().replace(R.id.container,
-                            FragmentFactory.getInstance().getNearMeNowFragment()).commit();
+                            FragmentFactory.getInstance().getNearMeNowFragment()).addToBackStack(null).commit();
                 }
                 if (position == 3) {
                     fragmentManager.beginTransaction().replace(R.id.container,

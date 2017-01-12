@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/rounded_corner">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/MainGreen"
+        android:text="Notification"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:textColor="@color/LightWhite"/>
+
+    <TextView
+        android:id="@+id/tvTextDialogMessage"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/LightWhite"
+        android:text="Logout now?"
+        android:gravity="center"
+        style="@style/text_14_grey"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@color/MainGreen">
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+        <TextView
+            android:id="@+id/btnCancelDialogMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:text="Cancel"
+            android:textSize="@dimen/text_14"
+            android:textColor="@color/LightWhite"
+            android:background="@drawable/rounded_corner"
+            android:layout_marginRight="10dp"/>
+    </LinearLayout>
+
+</LinearLayout>

@@ -48,7 +48,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class GroupedThingsToDoFragment extends Fragment {
+public class GroupedThingsToDoFragment extends BaseFragment {
 
     ArrayList<Thing> listThing = new ArrayList<>();
     ArrayList<ThumbnailActivity> listThumbnailActivity = new ArrayList<>();
@@ -63,11 +63,10 @@ public class GroupedThingsToDoFragment extends Fragment {
     private GetThingsDelegate getThingsDelegate;
 
     public GroupedThingsToDoFragment() {
-        for(int i = 0; i < 7; i++) {
-            String name = "Destination" + i;
-            listThing.add(new Thing("Museums", name, "This is Detail"));
-        }
-
+//        for(int i = 0; i < 7; i++) {
+//            String name = "Destination" + i;
+//            listThing.add(new Thing("Museums", name, "This is Detail"));
+//        }
         listThumbnailActivity.add(new ThumbnailActivity("Activities", R.drawable.venice2));
         listThumbnailActivity.add(new ThumbnailActivity("Food, Wine & Nightlife", R.drawable.venice2));
 
@@ -108,20 +107,23 @@ public class GroupedThingsToDoFragment extends Fragment {
             }
         });
 
-        OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor(newDefaultLogging())
-                .build();
+        if (listThing.size() == 0) {
+            OkHttpClient client = new OkHttpClient.Builder()
+                    .addInterceptor(newDefaultLogging())
+                    .build();
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://hcmtripadvisor.herokuapp.com/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(client)
-                .build();
-        service = retrofit.create(WebServiceInterface.class);
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl("https://hcmtripadvisor.herokuapp.com/")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .client(client)
+                    .build();
+            service = retrofit.create(WebServiceInterface.class);
 
-        callGetThings = service.listThingsToDo();
-        getThingsDelegate = new GetThingsDelegate(this);
-        callGetThings.enqueue(getThingsDelegate);
+            callGetThings = service.listThingsToDo();
+            getThingsDelegate = new GetThingsDelegate(this);
+            showProgressDialog();
+            callGetThings.enqueue(getThingsDelegate);
+        }
 
         ((MainActivity) getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
         ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -153,6 +155,8 @@ public class GroupedThingsToDoFragment extends Fragment {
         public void onResponse(Call<List<Thing>> call, Response<List<Thing>> response) {
             GroupedThingsToDoFragment fragment = fragmentWeakReference.get();
             if (fragment != null) {
+                fragment.dismissProgressDialog();
+                fragment.listThing.clear();
                 fragment.listThing.addAll(response.body());
                 fragment.mAdapter.notifyDataSetChanged();
             }

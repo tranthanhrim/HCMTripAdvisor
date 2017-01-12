@@ -1,6 +1,10 @@
 package com.example.tranthanhrim1995.hcmtripadvisor;
 
+import android.app.DialogFragment;
+import android.os.Bundle;
+
 import com.example.tranthanhrim1995.hcmtripadvisor.Fragment.DetailThingFragment;
+import com.example.tranthanhrim1995.hcmtripadvisor.Fragment.GridImageFragment;
 import com.example.tranthanhrim1995.hcmtripadvisor.Fragment.GroupedThingsToDoFragment;
 import com.example.tranthanhrim1995.hcmtripadvisor.Fragment.ListThingsToDoFragment;
 import com.example.tranthanhrim1995.hcmtripadvisor.Fragment.MainFragment;
@@ -8,7 +12,10 @@ import com.example.tranthanhrim1995.hcmtripadvisor.Fragment.NearMeNowFragment;
 import com.example.tranthanhrim1995.hcmtripadvisor.Fragment.MapThingFragment;
 import com.example.tranthanhrim1995.hcmtripadvisor.Fragment.NearMeFragment;
 import com.example.tranthanhrim1995.hcmtripadvisor.Fragment.SigninFragment;
+import com.example.tranthanhrim1995.hcmtripadvisor.Fragment.SpecificImageFragment;
 import com.example.tranthanhrim1995.hcmtripadvisor.Fragment.ThingsToDoFragment;
+import com.example.tranthanhrim1995.hcmtripadvisor.dialog.MessageDialogFragment;
+import com.example.tranthanhrim1995.hcmtripadvisor.dialog.RateDialogFragment;
 
 /**
  * Created by tranthanhrim1995 on 11/27/2016.
@@ -25,6 +32,12 @@ public class FragmentFactory {
     private NearMeNowFragment nearMeNowFragment;
     private MapThingFragment mapThingFragment;
     private SigninFragment signinFragment;
+    private GridImageFragment gridImageFragment;
+    private SpecificImageFragment specificImageFragment;
+
+    /*Dialog Fragment*/
+    private MessageDialogFragment gpsNotFoundDialog;
+    private RateDialogFragment rateDialogFragment;
 
     private static FragmentFactory instance = null;
 
@@ -38,6 +51,12 @@ public class FragmentFactory {
         setMapThingFragment(new MapThingFragment());
         setNearMeNowFragment(new NearMeNowFragment());
         setSigninFragment(new SigninFragment());
+        setGridImageFragment(new GridImageFragment());
+        setSpecificImageFragment(new SpecificImageFragment());
+
+        /*Dialog Fragment*/
+        setGpsNotFoundDialog(new MessageDialogFragment());
+        setRateDialogFragment(new RateDialogFragment());
     }
 
     public static FragmentFactory getInstance() {
@@ -117,5 +136,40 @@ public class FragmentFactory {
 
     public void setSigninFragment(SigninFragment signinFragment) {
         this.signinFragment = signinFragment;
+    }
+
+    public MessageDialogFragment getGpsNotFoundDialog() {
+        return gpsNotFoundDialog;
+    }
+
+    public void setGpsNotFoundDialog(MessageDialogFragment gpsNotFoundDialog) {
+        this.gpsNotFoundDialog = gpsNotFoundDialog;
+        Bundle bundle = new Bundle();
+        bundle.putString("messageDialog", "GPS Not found!");
+        this.gpsNotFoundDialog.setArguments(bundle);
+    }
+
+    public RateDialogFragment getRateDialogFragment() {
+        return rateDialogFragment;
+    }
+
+    public void setRateDialogFragment(RateDialogFragment rateDialogFragment) {
+        this.rateDialogFragment = rateDialogFragment;
+    }
+
+    public GridImageFragment getGridImageFragment() {
+        return gridImageFragment;
+    }
+
+    public void setGridImageFragment(GridImageFragment gridImageFragment) {
+        this.gridImageFragment = gridImageFragment;
+    }
+
+    public SpecificImageFragment getSpecificImageFragment() {
+        return specificImageFragment;
+    }
+
+    public void setSpecificImageFragment(SpecificImageFragment specificImageFragment) {
+        this.specificImageFragment = specificImageFragment;
     }
 }

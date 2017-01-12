@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
@@ -15,9 +16,11 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tranthanhrim1995.hcmtripadvisor.Adapter.GroupedThingsToDoAdapter;
@@ -25,8 +28,13 @@ import com.example.tranthanhrim1995.hcmtripadvisor.FragmentFactory;
 import com.example.tranthanhrim1995.hcmtripadvisor.MainActivity;
 import com.example.tranthanhrim1995.hcmtripadvisor.Model.Thing;
 import com.example.tranthanhrim1995.hcmtripadvisor.R;
+import com.kobakei.ratethisapp.RateThisApp;
 
 import java.util.ArrayList;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,7 +43,11 @@ public class DetailThingFragment extends Fragment {
 
     ArrayList<Thing> listHotel, listFood;
     RatingBar rbRateDetail;
-    RecyclerView rvHotelDetailThing, rvFoodDetailThing;
+    RecyclerView rvHotelDetailThing, rvFoodDetailThing, rvListComment;
+    ImageView btnMapDetail, btnCheckinDetail, btnLikeDetail;
+    ImageView btnClickRate;
+//    LinearLayout layoutImageDetail;
+
     GroupedThingsToDoAdapter mAdapterHotel, mAdapterFood;
     FragmentManager fragmentManager;
     public DetailThingFragment() {
@@ -55,6 +67,8 @@ public class DetailThingFragment extends Fragment {
         fragmentManager = getActivity().getSupportFragmentManager();
 
         ScrollView detailThingFragment = (ScrollView) inflater.inflate(R.layout.fragment_detail_thing, null);
+        ButterKnife.bind(this, detailThingFragment);
+
         rbRateDetail = (RatingBar)detailThingFragment.findViewById(R.id.rbRateDetail);
 
         LayerDrawable stars = (LayerDrawable) rbRateDetail.getProgressDrawable();
@@ -62,6 +76,7 @@ public class DetailThingFragment extends Fragment {
         stars.getDrawable(1).setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.SRC_ATOP);
         stars.getDrawable(0).setColorFilter(Color.parseColor("#569441"), PorterDuff.Mode.SRC_ATOP);
 
+        //RecyclerView Hotel
         mAdapterHotel = new GroupedThingsToDoAdapter(listHotel, getActivity().getSupportFragmentManager());
         LinearLayoutManager hlayoutManager
                 = new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
@@ -70,6 +85,7 @@ public class DetailThingFragment extends Fragment {
         rvHotelDetailThing.setItemAnimator(new DefaultItemAnimator());
         rvHotelDetailThing.setAdapter(mAdapterHotel);
 
+        //RecyclerView Food
         mAdapterFood = new GroupedThingsToDoAdapter(listFood, getActivity().getSupportFragmentManager());
         LinearLayoutManager h2layoutManager
                 = new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
@@ -78,18 +94,47 @@ public class DetailThingFragment extends Fragment {
         rvFoodDetailThing.setItemAnimator(new DefaultItemAnimator());
         rvFoodDetailThing.setAdapter(mAdapterFood);
 
+        //RecyclerView List Comment
+//        RecyclerView.LayoutManager mLayoutManagerListComment = new LinearLayoutManager(getActivity().getApplicationContext());
+//        rvListComment = (RecyclerView)detailThingFragment.findViewById(R.id.rvListComment);
+//        rvListComment.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
+//        rvListComment.setHasFixedSize(true);
+
+        //Button map
+        btnMapDetail = (ImageView) detailThingFragment.findViewById(R.id.btnMapDetail);
+        btnMapDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fragmentManager.beginTransaction().replace(R.id.container,
+                        FragmentFactory.getInstance().getMapThingFragment()).addToBackStack(null).commit();
+            }
+        });
+
+        //Button rate
+        btnClickRate = (ImageView)detailThingFragment.findViewById(R.id.btnClickRate);
+        btnClickRate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentFactory.getInstance().getRateDialogFragment().show(getActivity().getFragmentManager(), "rate-dialog");
+            }
+        });
+
         ((MainActivity) getActivity()).getSupportActionBar().setTitle("Detail Thing");
-//        ((MainActivity) getActivity()).getSupportActionBar().setHomeButtonEnabled(true);
         ((MainActivity) getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
         ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         return detailThingFragment;
     }
 
+    @OnClick(R.id.layoutImageDetail) void showGridImage() {
+        fragmentManager.beginTransaction().replace(R.id.container,
+                FragmentFactory.getInstance().getGridImageFragment()).addToBackStack(null).commit();
+    }
+
     @Override
     public void onResume() {
         super.onResume();
-//        ((MainActivity) getActivity()).getSupportActionBar().setHomeButtonEnabled(true);
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle("Detail Thing");
         ((MainActivity) getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
         ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }

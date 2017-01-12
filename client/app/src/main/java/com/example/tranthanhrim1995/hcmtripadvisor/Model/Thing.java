@@ -3,35 +3,33 @@ package com.example.tranthanhrim1995.hcmtripadvisor.Model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.ArrayList;
-
 /**
  * Created by tranthanhrim1995 on 1/6/2017.
  */
 
 public class Thing implements Parcelable{
     private String _type;
-    private String placeName;
-    private String detail;
-    private String image;
-    private String id;
-    private int grade;
+    private String _placeName;
+    private String _detail;
+    private String _image;
+    private String _id;
+    private int _grade;
 
     public Thing() {}
 
-    public Thing(String type, String placeName, String detail) {
+    public Thing(String type, String _placeName, String _detail) {
         this._type= type;
-        this.placeName = placeName;
-        this.detail = detail;
+        this._placeName = _placeName;
+        this._detail = _detail;
     }
 
     protected Thing(Parcel in) {
         _type = in.readString();
-        placeName = in.readString();
-        detail = in.readString();
-        image = in.readString();
-        id = in.readString();
-        grade = in.readInt();
+        _placeName = in.readString();
+        _detail = in.readString();
+        _image = in.readString();
+        _id = in.readString();
+        _grade = in.readInt();
     }
 
     public static final Creator<Thing> CREATOR = new Creator<Thing>() {
@@ -55,43 +53,43 @@ public class Thing implements Parcelable{
     }
 
     public String getPlaceName() {
-        return placeName;
+        return _placeName;
     }
 
     public void setPlaceName(String placeName) {
-        this.placeName = placeName;
+        this._placeName = placeName;
     }
 
-    public String getDetail() {
-        return detail;
+    public String get_detail() {
+        return _detail;
     }
 
-    public void setDetail(String detail) {
-        this.detail = detail;
+    public void set_detail(String _detail) {
+        this._detail = _detail;
     }
 
     public String getId() {
-        return id;
+        return _id;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setId(String _id) {
+        this._id = _id;
     }
 
-    public int getGrade() {
-        return grade;
+    public int get_grade() {
+        return _grade;
     }
 
-    public void setGrade(int grade) {
-        this.grade = grade;
+    public void set_grade(int _grade) {
+        this._grade = _grade;
     }
 
     public String getImage() {
-        return image;
+        return _image;
     }
 
-    public void setImages(String image) {
-        this.image = image;
+    public void setImages(String _image) {
+        this._image = _image;
     }
 
     @Override
@@ -102,10 +100,10 @@ public class Thing implements Parcelable{
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(this._type);
-        parcel.writeString(this.placeName);
-        parcel.writeString(this.detail);
-        parcel.writeString(this.image);
-        parcel.writeString(this.id);
-        parcel.writeInt(this.grade);
+        parcel.writeString(this._placeName);
+        parcel.writeString(this._detail);
+        parcel.writeString(this._image);
+        parcel.writeString(this._id);
+        parcel.writeInt(this._grade);
     }
 }

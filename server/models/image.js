@@ -8,9 +8,6 @@ var imageSchema = mongoose.Schema({
 	},
 	_link:{
 		type: Array
-	},
-	_thumnailLink:{
-		type: String
 	}
 });
 

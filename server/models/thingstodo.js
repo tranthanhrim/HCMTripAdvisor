@@ -22,6 +22,15 @@ var thingsToDoSchema = mongoose.Schema({
 	},
 	_grade: {
 		type: Number
+	},
+	_thumnailLink: {
+		type: String
+	},
+	_ratingSummary: {
+		type: String
+	},
+	_map: {
+		type: Object
 	}
 });
 

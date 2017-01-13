@@ -40,4 +40,12 @@
     <dimen name="text_14">14sp</dimen>
     <dimen name="text_12">12sp</dimen>
 
+    <string-array name="category">
+        <item>All</item>
+        <item>Destination</item>
+        <item>Hotel</item>
+        <item>Food</item>
+    </string-array>
+
+
 </resources>

@@ -28,6 +28,7 @@ import com.example.tranthanhrim1995.hcmtripadvisor.Adapter.GroupedThingsToDoAdap
 import com.example.tranthanhrim1995.hcmtripadvisor.Adapter.ThumbnailActivitiesAdapter;
 import com.example.tranthanhrim1995.hcmtripadvisor.FragmentFactory;
 import com.example.tranthanhrim1995.hcmtripadvisor.MainActivity;
+import com.example.tranthanhrim1995.hcmtripadvisor.ManageActionBar;
 import com.example.tranthanhrim1995.hcmtripadvisor.Model.Thing;
 import com.example.tranthanhrim1995.hcmtripadvisor.Model.ThumbnailActivity;
 import com.example.tranthanhrim1995.hcmtripadvisor.R;
@@ -54,8 +55,8 @@ public class GroupedThingsToDoFragment extends BaseFragment {
     ArrayList<ThumbnailActivity> listThumbnailActivity = new ArrayList<>();
     RecyclerView recyclerView, recyclerView2;
     ImageView btnListThingsToDo;
-    GroupedThingsToDoAdapter mAdapter;
-    ThumbnailActivitiesAdapter mAdapter2;
+    GroupedThingsToDoAdapter mAdapter = null;
+    ThumbnailActivitiesAdapter mAdapter2 = null;
     FragmentManager fragmentManager;
 
     WebServiceInterface service;
@@ -79,7 +80,9 @@ public class GroupedThingsToDoFragment extends BaseFragment {
         NestedScrollView groupedThingFragment = (NestedScrollView)inflater.inflate(R.layout.fragment_grouped_things_to_do, null);
         recyclerView = (RecyclerView) groupedThingFragment.findViewById(R.id.rvGroupedThings);
         recyclerView2 = (RecyclerView) groupedThingFragment.findViewById(R.id.rvActivities);
-        mAdapter = new GroupedThingsToDoAdapter(listThing, fragmentManager);
+        if (mAdapter == null) {
+            mAdapter = new GroupedThingsToDoAdapter(listThing, fragmentManager);
+        }
         mAdapter2 = new ThumbnailActivitiesAdapter(listThumbnailActivity);
 
         //Vertical RecyclerView
@@ -125,16 +128,14 @@ public class GroupedThingsToDoFragment extends BaseFragment {
             callGetThings.enqueue(getThingsDelegate);
         }
 
-        ((MainActivity) getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
-        ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         return groupedThingFragment;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        ((MainActivity) getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
-        ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ManageActionBar.getInstance().setTitle("Things to do");
+        ManageActionBar.getInstance().showButtonBack();
     }
 
     private HttpLoggingInterceptor newDefaultLogging() {

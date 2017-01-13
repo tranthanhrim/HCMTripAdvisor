@@ -8,6 +8,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import android.widget.LinearLayout;
 
 import com.example.tranthanhrim1995.hcmtripadvisor.FragmentFactory;
 import com.example.tranthanhrim1995.hcmtripadvisor.GoogleApiClientInstance;
+import com.example.tranthanhrim1995.hcmtripadvisor.MainActivity;
 import com.example.tranthanhrim1995.hcmtripadvisor.R;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -41,15 +43,7 @@ public class SigninFragment extends Fragment implements GoogleApiClient.OnConnec
                              Bundle savedInstanceState) {
         fragmentManager = getActivity().getSupportFragmentManager();
         LinearLayout signinFragment = (LinearLayout)inflater.inflate(R.layout.fragment_signin, null);
-
-//        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-//                .requestEmail()
-//                .build();
-//        mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
-//                .enableAutoManage(getActivity() /* FragmentActivity */, this /* OnConnectionFailedListener */)
-//                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-//                .build();
-
+        
         SignInButton signInButton = (SignInButton) signinFragment.findViewById(R.id.sign_in_button);
         signInButton.setSize(SignInButton.SIZE_STANDARD);
 
@@ -120,5 +114,13 @@ public class SigninFragment extends Fragment implements GoogleApiClient.OnConnec
 
     private void updateUI() {
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MainActivity) getActivity()).getSupportActionBar().hide();
+        DrawerLayout mDrawer = (DrawerLayout) this.getActivity().findViewById(R.id.drawer_layout);
+        mDrawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
     }
 }

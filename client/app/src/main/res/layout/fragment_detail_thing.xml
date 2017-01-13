@@ -106,28 +106,28 @@
                 android:text="Cu Chi Tunnels"
                 android:textColor="@color/LightBlack"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
-                <RatingBar
-                    android:id="@+id/rbRateDetail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="?android:attr/ratingBarStyleSmall"
-                    android:numStars="5"
-                    android:stepSize="0.1"
-                    android:isIndicator="true"
-                    android:rating="4.5"
-                    android:layout_marginRight="10dp"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/text_14_grey"
-                    android:textColor="@color/LightBlack"
-                    android:text="1234 Reviews"/>
-            </LinearLayout>
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="30dp"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:gravity="center_vertical">-->
+                <!--<RatingBar-->
+                    <!--android:id="@+id/rbRateDetail"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--style="?android:attr/ratingBarStyleSmall"-->
+                    <!--android:numStars="5"-->
+                    <!--android:stepSize="0.1"-->
+                    <!--android:isIndicator="true"-->
+                    <!--android:rating="4.5"-->
+                    <!--android:layout_marginRight="10dp"/>-->
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--style="@style/text_14_grey"-->
+                    <!--android:textColor="@color/LightBlack"-->
+                    <!--android:text="1234 Reviews"/>-->
+            <!--</LinearLayout>-->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -268,6 +268,7 @@
             android:gravity="center_vertical"
             android:layout_marginBottom="10dp">
             <RatingBar
+                android:id="@+id/rbSummaryRateDetail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
@@ -413,6 +414,7 @@
         </LinearLayout>
         <!-- Button See all comment-->
         <LinearLayout
+            android:id="@+id/btnSeeAllComments"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
@@ -424,7 +426,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_14"
                 android:textColor="@color/LightWhite"
-                android:text="See all comment..."/>
+                android:text="See all comments..."/>
 
         </LinearLayout>
 

@@ -61,12 +61,6 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-//        View hView =  navigationView.inflateHeaderView(R.layout.nav_header_main);
-//        ImageView avatar = (ImageView)hView.findViewById(R.id.imageView);
-//        TextView email = (TextView)hView.findViewById(R.id.);
-////        imgvw .setImageResource();
-//        email.setText("new text");
-
         //Change avatar and name
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         if (sharedPref.contains(getString(R.string.google_id))
@@ -78,27 +72,9 @@ public class MainActivity extends AppCompatActivity
 
             username.setText(sharedPref.getString(getString(R.string.display_name), ""));
             email.setText(sharedPref.getString(getString(R.string.email), ""));
-//            ImageLoader imageLoader = ImageLoader.getInstance();
-//            Bitmap bmp = imageLoader.loadImageSync(sharedPref.getString(getString(R.string.photo_url), ""));
-//            Bitmap bmp = imageLoader.loadImageSync("http://lh3.googleusercontent.com/-BQovJQPw6Nw/AAAAAAAAAAI/AAAAAAAAAHk/paY4_MeEJc4/photo.jpg");
-//            avatar.setImageBitmap(bmp);
             Picasso.with(this).load(sharedPref.getString(getString(R.string.photo_url), ""))
                         .transform(new CircleTransform()).into(avatar);
-//            imageLoader.displayImage(uri, avatar);
-//            URL url = null;
-//            try {
-//                url = new URL("http://image10.bizrate-images.com/resize?sq=60&uid=2216744464");
-//                Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-//                avatar.setImageBitmap(bmp);
-//            } catch (MalformedURLException e) {
-//                e.printStackTrace();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
         }
-
-
-
 
 
         fragmentManager.beginTransaction().replace(R.id.container,
@@ -211,4 +187,6 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 }

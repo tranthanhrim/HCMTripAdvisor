@@ -13,6 +13,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +28,7 @@ import android.widget.Toast;
 import com.example.tranthanhrim1995.hcmtripadvisor.Adapter.GroupedThingsToDoAdapter;
 import com.example.tranthanhrim1995.hcmtripadvisor.FragmentFactory;
 import com.example.tranthanhrim1995.hcmtripadvisor.MainActivity;
+import com.example.tranthanhrim1995.hcmtripadvisor.ManageActionBar;
 import com.example.tranthanhrim1995.hcmtripadvisor.Model.Thing;
 import com.example.tranthanhrim1995.hcmtripadvisor.R;
 import com.kobakei.ratethisapp.RateThisApp;
@@ -42,11 +45,9 @@ import butterknife.OnClick;
 public class DetailThingFragment extends Fragment {
 
     ArrayList<Thing> listHotel, listFood;
-    RatingBar rbRateDetail;
     RecyclerView rvHotelDetailThing, rvFoodDetailThing, rvListComment;
     ImageView btnMapDetail, btnCheckinDetail, btnLikeDetail;
     ImageView btnClickRate;
-//    LinearLayout layoutImageDetail;
 
     GroupedThingsToDoAdapter mAdapterHotel, mAdapterFood;
     FragmentManager fragmentManager;
@@ -60,6 +61,9 @@ public class DetailThingFragment extends Fragment {
         }
     }
 
+    @BindView(R.id.rbSummaryRateDetail)
+    RatingBar rbSummaryRateDetail;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -69,12 +73,10 @@ public class DetailThingFragment extends Fragment {
         ScrollView detailThingFragment = (ScrollView) inflater.inflate(R.layout.fragment_detail_thing, null);
         ButterKnife.bind(this, detailThingFragment);
 
-        rbRateDetail = (RatingBar)detailThingFragment.findViewById(R.id.rbRateDetail);
-
-        LayerDrawable stars = (LayerDrawable) rbRateDetail.getProgressDrawable();
+        LayerDrawable stars = (LayerDrawable) rbSummaryRateDetail.getProgressDrawable();
         stars.getDrawable(2).setColorFilter(Color.parseColor("#569441"), PorterDuff.Mode.SRC_ATOP);
-        stars.getDrawable(1).setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.SRC_ATOP);
-        stars.getDrawable(0).setColorFilter(Color.parseColor("#569441"), PorterDuff.Mode.SRC_ATOP);
+        stars.getDrawable(1).setColorFilter(Color.parseColor("#CFCFCF"), PorterDuff.Mode.SRC_ATOP);
+        stars.getDrawable(0).setColorFilter(Color.parseColor("#CFCFCF"), PorterDuff.Mode.SRC_ATOP);
 
         //RecyclerView Hotel
         mAdapterHotel = new GroupedThingsToDoAdapter(listHotel, getActivity().getSupportFragmentManager());
@@ -119,10 +121,6 @@ public class DetailThingFragment extends Fragment {
             }
         });
 
-        ((MainActivity) getActivity()).getSupportActionBar().setTitle("Detail Thing");
-        ((MainActivity) getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
-        ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         return detailThingFragment;
     }
 
@@ -131,11 +129,14 @@ public class DetailThingFragment extends Fragment {
                 FragmentFactory.getInstance().getGridImageFragment()).addToBackStack(null).commit();
     }
 
+    @OnClick(R.id.btnSeeAllComments) void showAllComments() {
+        FragmentFactory.getInstance().getListCommentDialogFragment().show(getActivity().getFragmentManager(), "all-comments");
+    }
+
     @Override
     public void onResume() {
         super.onResume();
-        ((MainActivity) getActivity()).getSupportActionBar().setTitle("Detail Thing");
-        ((MainActivity) getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
-        ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ManageActionBar.getInstance().setTitle("Detail thing");
+        ManageActionBar.getInstance().showButtonBack();
     }
 }

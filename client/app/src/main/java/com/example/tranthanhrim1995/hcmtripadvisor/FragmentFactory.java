@@ -14,6 +14,7 @@ import com.example.tranthanhrim1995.hcmtripadvisor.Fragment.NearMeFragment;
 import com.example.tranthanhrim1995.hcmtripadvisor.Fragment.SigninFragment;
 import com.example.tranthanhrim1995.hcmtripadvisor.Fragment.SpecificImageFragment;
 import com.example.tranthanhrim1995.hcmtripadvisor.Fragment.ThingsToDoFragment;
+import com.example.tranthanhrim1995.hcmtripadvisor.dialog.ListCommentDialogFragment;
 import com.example.tranthanhrim1995.hcmtripadvisor.dialog.MessageDialogFragment;
 import com.example.tranthanhrim1995.hcmtripadvisor.dialog.RateDialogFragment;
 
@@ -38,6 +39,7 @@ public class FragmentFactory {
     /*Dialog Fragment*/
     private MessageDialogFragment gpsNotFoundDialog;
     private RateDialogFragment rateDialogFragment;
+    private ListCommentDialogFragment listCommentDialogFragment;
 
     private static FragmentFactory instance = null;
 
@@ -57,6 +59,7 @@ public class FragmentFactory {
         /*Dialog Fragment*/
         setGpsNotFoundDialog(new MessageDialogFragment());
         setRateDialogFragment(new RateDialogFragment());
+        setListCommentDialogFragment(new ListCommentDialogFragment());
     }
 
     public static FragmentFactory getInstance() {
@@ -171,5 +174,13 @@ public class FragmentFactory {
 
     public void setSpecificImageFragment(SpecificImageFragment specificImageFragment) {
         this.specificImageFragment = specificImageFragment;
+    }
+
+    public ListCommentDialogFragment getListCommentDialogFragment() {
+        return listCommentDialogFragment;
+    }
+
+    public void setListCommentDialogFragment(ListCommentDialogFragment listCommentDialogFragment) {
+        this.listCommentDialogFragment = listCommentDialogFragment;
     }
 }

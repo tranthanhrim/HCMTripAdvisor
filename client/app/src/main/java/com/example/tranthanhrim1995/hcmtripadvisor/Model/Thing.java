@@ -8,12 +8,17 @@ import android.os.Parcelable;
  */
 
 public class Thing implements Parcelable{
+
+    private String _id;
+    private String _ma;
     private String _type;
     private String _placeName;
     private String _detail;
     private String _image;
-    private String _id;
     private int _grade;
+    private String _thumnailLink;
+    private float  _ratingSummary;
+    private Location _map;
 
     public Thing() {}
 
@@ -23,13 +28,18 @@ public class Thing implements Parcelable{
         this._detail = _detail;
     }
 
+
     protected Thing(Parcel in) {
+        _id = in.readString();
+        _ma = in.readString();
         _type = in.readString();
         _placeName = in.readString();
         _detail = in.readString();
         _image = in.readString();
-        _id = in.readString();
         _grade = in.readInt();
+        _thumnailLink = in.readString();
+        _ratingSummary = in.readFloat();
+        _map = in.readParcelable(Location.class.getClassLoader());
     }
 
     public static final Creator<Thing> CREATOR = new Creator<Thing>() {
@@ -92,6 +102,39 @@ public class Thing implements Parcelable{
         this._image = _image;
     }
 
+
+    public Location getMap() {
+        return _map;
+    }
+
+    public void setMap(Location _map) {
+        this._map = _map;
+    }
+
+    public String get_ma() {
+        return _ma;
+    }
+
+    public void set_ma(String _ma) {
+        this._ma = _ma;
+    }
+
+    public String get_thumnailLink() {
+        return _thumnailLink;
+    }
+
+    public void set_thumnailLink(String _thumnailLink) {
+        this._thumnailLink = _thumnailLink;
+    }
+
+    public float get_ratingSummary() {
+        return _ratingSummary;
+    }
+
+    public void set_ratingSummary(float _ratingSummary) {
+        this._ratingSummary = _ratingSummary;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -99,11 +142,15 @@ public class Thing implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(this._type);
-        parcel.writeString(this._placeName);
-        parcel.writeString(this._detail);
-        parcel.writeString(this._image);
-        parcel.writeString(this._id);
-        parcel.writeInt(this._grade);
+        parcel.writeString(_id);
+        parcel.writeString(_ma);
+        parcel.writeString(_type);
+        parcel.writeString(_placeName);
+        parcel.writeString(_detail);
+        parcel.writeString(_image);
+        parcel.writeInt(_grade);
+        parcel.writeString(_thumnailLink);
+        parcel.writeFloat(_ratingSummary);
+        parcel.writeParcelable(_map, i);
     }
 }

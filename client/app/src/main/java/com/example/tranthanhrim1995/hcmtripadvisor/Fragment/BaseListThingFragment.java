@@ -1,13 +1,12 @@
 package com.example.tranthanhrim1995.hcmtripadvisor.Fragment;
 
-
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,37 +16,38 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.example.tranthanhrim1995.hcmtripadvisor.Adapter.ListThingsToDoAdapter;
-import com.example.tranthanhrim1995.hcmtripadvisor.FragmentFactory;
-import com.example.tranthanhrim1995.hcmtripadvisor.MainActivity;
 import com.example.tranthanhrim1995.hcmtripadvisor.Model.Thing;
 import com.example.tranthanhrim1995.hcmtripadvisor.R;
 
 import java.util.ArrayList;
 
 /**
- * A simple {@link Fragment} subclass.
+ * Created by tranthanhrim1995 on 1/13/2017.
  */
-public class ListThingsToDoFragment extends Fragment {
+
+public class BaseListThingFragment extends Fragment {
 
     ArrayList<Thing> listThing = new ArrayList<>();
     RecyclerView rvListThingsToDo;
     ListThingsToDoAdapter mAdapter;
     FragmentManager fragmentManager;
 
-    public ListThingsToDoFragment() {
-//        fragmentManager = getActivity().getSupportFragmentManager();
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    public BaseListThingFragment() {
         for(int i = 0; i < 7; i++) {
             String name = "Destination" + i;
             listThing.add(new Thing("Museums", name, "This is Detail"));
         }
-
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        setHasOptionsMenu(true);
         fragmentManager = getActivity().getSupportFragmentManager();
         LinearLayout listThingsToDoFragment = (LinearLayout)inflater.inflate(R.layout.fragment_list_things_to_do, null);
 
@@ -64,6 +64,7 @@ public class ListThingsToDoFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+//        setHasOptionsMenu(true);
     }
 
     @Override

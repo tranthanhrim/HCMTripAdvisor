@@ -4,9 +4,12 @@ package com.example.tranthanhrim1995.hcmtripadvisor.Fragment;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -16,6 +19,8 @@ import android.widget.ListView;
 import com.example.tranthanhrim1995.hcmtripadvisor.Adapter.MainScreenMenuAdapter;
 import com.example.tranthanhrim1995.hcmtripadvisor.FragmentFactory;
 import com.example.tranthanhrim1995.hcmtripadvisor.ItemAdapter.ItemMainScreenMenu;
+import com.example.tranthanhrim1995.hcmtripadvisor.MainActivity;
+import com.example.tranthanhrim1995.hcmtripadvisor.ManageActionBar;
 import com.example.tranthanhrim1995.hcmtripadvisor.R;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -36,8 +41,15 @@ public class MainFragment extends Fragment{
     ArrayList<ItemMainScreenMenu> listItem;
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        ManageActionBar.getInstance().init(getActivity());
         LinearLayout mainFragment = (LinearLayout)inflater.inflate(R.layout.fragment_main, null);
 
         fragmentManager = getActivity().getSupportFragmentManager();
@@ -58,7 +70,7 @@ public class MainFragment extends Fragment{
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 if (position == 0){
                     fragmentManager.beginTransaction().replace(R.id.container,
-                            FragmentFactory.getInstance().getNearMeNowFragment()).addToBackStack(null).commit();
+                            FragmentFactory.getInstance().getNearMeFragment()).addToBackStack(null).commit();
                 }
                 if (position == 3) {
                     fragmentManager.beginTransaction().replace(R.id.container,
@@ -75,5 +87,27 @@ public class MainFragment extends Fragment{
         });
 
         return mainFragment;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MainActivity) getActivity()).getSupportActionBar().show();
+        DrawerLayout mDrawer = (DrawerLayout) this.getActivity().findViewById(R.id.drawer_layout);
+        mDrawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+        ManageActionBar.getInstance().setTitle("HCM TripAdvisor");
+//        setHasOptionsMenu(false);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        DrawerLayout mDrawer = (DrawerLayout) this.getActivity().findViewById(R.id.drawer_layout);
+        mDrawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        menu.clear();
     }
 }

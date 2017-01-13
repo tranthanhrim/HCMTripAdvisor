@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_nearest"
+        android:orderInCategory="100"
+        android:title="Nearest"
+        app:showAsAction="collapseActionView"
+        android:visible="true"/>
+    <item
+        android:id="@+id/action_promotion"
+        android:orderInCategory="100"
+        android:title="Promotion"
+        app:showAsAction="collapseActionView"
+        android:visible="true"/>
+    <item
+        android:id="@+id/action_price_increase"
+        android:orderInCategory="100"
+        android:title="Price increase"
+        app:showAsAction="collapseActionView"
+        android:visible="true"/>
+    <item
+        android:id="@+id/action_price_decrease"
+        android:orderInCategory="100"
+        android:title="Price decrease"
+        app:showAsAction="collapseActionView"
+        android:visible="true"/>
+</menu>

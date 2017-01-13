@@ -13,7 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.5"
-            android:src="@drawable/venice"
+            android:src="@drawable/placeholder_landscape"
             android:scaleType="fitXY"/>
         <LinearLayout
             android:layout_width="match_parent"

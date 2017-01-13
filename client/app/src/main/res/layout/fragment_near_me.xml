@@ -1,35 +1,90 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="10dp">
 
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tabLayoutNearMe"
+    <!--<android.support.design.widget.TabLayout-->
+        <!--android:id="@+id/tabLayoutNearMe"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@color/MainGreen"-->
+        <!--android:minHeight="?attr/actionBarSize"-->
+        <!--android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">-->
+        <!--<android.support.design.widget.TabItem-->
+            <!--android:text="Destination"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"/>-->
+
+        <!--<android.support.design.widget.TabItem-->
+            <!--android:text="Hotel"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"/>-->
+
+        <!--<android.support.design.widget.TabItem-->
+            <!--android:text="Food"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"/>-->
+    <!--</android.support.design.widget.TabLayout>-->
+
+    <!--&lt;!&ndash; View pager to swipe views &ndash;&gt;-->
+    <!--<android.support.v4.view.ViewPager-->
+        <!--android:id="@+id/pagerNearMe"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="fill_parent"/>-->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/MainGreen"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-        <android.support.design.widget.TabItem
-            android:text="Destination"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/rounded_corner_green_border"
+            android:padding="10dp">
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:src="@drawable/icon_map"
+                android:layout_marginRight="10dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/text_14_grey"
+                android:text="Set location"
+                android:layout_marginRight="5dp"/>
+        </LinearLayout>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+        <Spinner
+            android:id="@+id/spCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="end">
+        </Spinner>
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/classification_icon"/>
 
-        <android.support.design.widget.TabItem
-            android:text="Hotel"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+    </LinearLayout>
 
-        <android.support.design.widget.TabItem
-            android:text="Food"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-    </android.support.design.widget.TabLayout>
-
-    <!-- View pager to swipe views -->
-    <android.support.v4.view.ViewPager
-        android:id="@+id/pagerNearMe"
+    <View
         android:layout_width="match_parent"
-        android:layout_height="fill_parent"/>
+        android:layout_height="0.5dp"
+        android:background="@color/LightGray"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="-6dp"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvNearMe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
+    </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

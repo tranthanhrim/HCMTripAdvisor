@@ -31,6 +31,9 @@ public class GridImageFragment extends BaseFragment {
     FragmentManager fragmentManager;
     RecyclerView rvGridImage;
     GridImageAdapter mAdapter;
+
+    String oldImage = "";
+
     public GridImageFragment() {
         String image = "https://firebasestorage.googleapis.com/v0/b/testuploadimage-8f69f.appspot.com/o/cuchi300.jpg?alt=media&token=782ccfd4-6bfd-4307-bf16-a1c70276f952";
         images.add(image);
@@ -43,7 +46,11 @@ public class GridImageFragment extends BaseFragment {
         fragmentManager = getActivity().getSupportFragmentManager();
         LinearLayout gridImageFragment = (LinearLayout) inflater.inflate(R.layout.fragment_grid_image, null);
 
-        mAdapter = new GridImageAdapter(images, fragmentManager, getActivity());
+        Bundle bundle = getArguments();
+        if (!oldImage.equals(bundle.getString("image"))) {
+            mAdapter = new GridImageAdapter(images, fragmentManager, getActivity());
+            oldImage = bundle.getString("image");
+        }
 
         //Calculate num of column
         DisplayMetrics displayMetrics = getActivity().getResources().getDisplayMetrics();

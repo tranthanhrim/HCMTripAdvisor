@@ -125,8 +125,11 @@ public class DetailThingFragment extends Fragment {
     }
 
     @OnClick(R.id.layoutImageDetail) void showGridImage() {
-        fragmentManager.beginTransaction().replace(R.id.container,
-                FragmentFactory.getInstance().getGridImageFragment()).addToBackStack(null).commit();
+        Bundle bundle = new Bundle();
+        bundle.putString("image", "123456");
+        Fragment fragment = FragmentFactory.getInstance().getGridImageFragment();
+        fragment.setArguments(bundle);
+        fragmentManager.beginTransaction().replace(R.id.container,fragment).addToBackStack(null).commit();
     }
 
     @OnClick(R.id.btnSeeAllComments) void showAllComments() {

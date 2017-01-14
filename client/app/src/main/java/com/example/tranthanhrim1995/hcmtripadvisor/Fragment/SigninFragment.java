@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.tranthanhrim1995.hcmtripadvisor.CircleTransform;
+import com.example.tranthanhrim1995.hcmtripadvisor.ConnectionChecking;
 import com.example.tranthanhrim1995.hcmtripadvisor.FragmentFactory;
 import com.example.tranthanhrim1995.hcmtripadvisor.GoogleApiClientInstance;
 import com.example.tranthanhrim1995.hcmtripadvisor.MainActivity;
@@ -57,12 +58,18 @@ public class SigninFragment extends Fragment implements GoogleApiClient.OnConnec
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                switch (view.getId()) {
-                    case R.id.sign_in_button:
-                        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(
-                                GoogleApiClientInstance.getInstance(getActivity()).getGoogleApiClient());
-                        startActivityForResult(signInIntent, RC_SIGN_IN);
-                        break;
+                if (ConnectionChecking.getInstance().isInternetEnabled()) {
+                    switch (view.getId()) {
+                        case R.id.sign_in_button:
+                            Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(
+                                    GoogleApiClientInstance.getInstance(getActivity()).getGoogleApiClient());
+                            startActivityForResult(signInIntent, RC_SIGN_IN);
+                            break;
+                    }
+                }
+                else {
+                    FragmentFactory.getInstance().getInternetNotFoundDialog()
+                            .show(getActivity().getFragmentManager(), "no-internet");
                 }
             }
         });
@@ -71,7 +78,8 @@ public class SigninFragment extends Fragment implements GoogleApiClient.OnConnec
 
         //User logged in
         if (sharedPref.contains(getString(R.string.google_id))
-            && !sharedPref.getString(getString(R.string.google_id), "").isEmpty()) {
+            && !sharedPref.getString(getString(R.string.google_id), "").isEmpty()
+            && ConnectionChecking.getInstance().isInternetEnabled()) {
             Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(
                     GoogleApiClientInstance.getInstance(getActivity()).getGoogleApiClient());
             startActivityForResult(signInIntent, RC_SIGN_IN);

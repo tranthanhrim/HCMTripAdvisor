@@ -71,28 +71,6 @@
             </LinearLayout>
         </LinearLayout>
 
-        <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:orientation="horizontal"-->
-            <!--android:gravity="center_vertical">-->
-            <!--<View-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_weight="1"/>-->
-            <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--style="@style/text_14_grey"-->
-                <!--android:text="See all images"/>-->
-            <!--<ImageView-->
-                <!--android:layout_width="30dp"-->
-                <!--android:layout_height="30dp"-->
-                <!--android:src="@drawable/icon_near_photo"-->
-                <!--android:layout_marginLeft="10dp"/>-->
-
-        <!--</LinearLayout>-->
-
         <!--Information-->
         <LinearLayout
             android:layout_width="match_parent"
@@ -107,29 +85,6 @@
                 android:text="Cu Chi Tunnels"
                 android:textColor="@color/LightBlack"
                 android:layout_marginBottom="5dp"/>
-
-            <!--<LinearLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="30dp"-->
-                <!--android:orientation="horizontal"-->
-                <!--android:gravity="center_vertical">-->
-                <!--<RatingBar-->
-                    <!--android:id="@+id/rbRateDetail"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--style="?android:attr/ratingBarStyleSmall"-->
-                    <!--android:numStars="5"-->
-                    <!--android:stepSize="0.1"-->
-                    <!--android:isIndicator="true"-->
-                    <!--android:rating="4.5"-->
-                    <!--android:layout_marginRight="10dp"/>-->
-                <!--<TextView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--style="@style/text_14_grey"-->
-                    <!--android:textColor="@color/LightBlack"-->
-                    <!--android:text="1234 Reviews"/>-->
-            <!--</LinearLayout>-->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -161,7 +116,6 @@
 
         </LinearLayout>
 
-        <!--Hotels-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50px"
@@ -172,66 +126,64 @@
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/icon_hotels_no_background"
+                android:src="@drawable/partner_attribute_info_icon"
                 android:layout_marginRight="10dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/text_16_grey"
-                android:text="Hotels"/>
+                android:text="Information"/>
             <View
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"/>
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="15dp"
-                android:src="@drawable/green_chevron_right"
-                android:layout_marginRight="5dp"/>
-
         </LinearLayout>
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rvHotelDetailThing"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"/>
-
-        <!--Food-->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50px"
-            android:orientation="horizontal"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="5dp"
-            android:gravity="center_vertical">
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/inverted_food_drink"
-                android:layout_marginRight="10dp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/text_16_grey"
-                android:text="Foods"/>
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="15dp"
-                android:src="@drawable/green_chevron_right"
-                android:layout_marginRight="5dp"/>
-
-        </LinearLayout>
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rvFoodDetailThing"
-            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"/>
+            android:orientation="vertical"
+            android:background="@drawable/rounded_corner_green_border"
+            android:padding="10dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/icon_map"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_16"
+                    android:textColor="@color/MainGreen"
+                    android:text="77 Knollwood Rd, White Plains, NY 1060777 Knollwood Rd, White Plains, NY 10607"/>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/MainGreen"
+                android:layout_margin="10dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/icon_phone"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_16"
+                    android:textColor="@color/MainGreen"
+                    android:text="+0123456789"/>
+            </LinearLayout>
+        </LinearLayout>
+
+
 
         <!--Review-->
         <LinearLayout

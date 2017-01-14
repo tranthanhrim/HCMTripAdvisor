@@ -66,28 +66,32 @@ public class GridImageAdapter extends RecyclerView.Adapter<GridImageAdapter.View
     @Override
     public void onBindViewHolder(GridImageAdapter.ViewHolder holder, final int position) {
 //        Picasso.with(context).load(images.get(position)).into(holder.ivItemGridImage);
-        imageLoader.displayImage(images.get(position), holder.ivItemGridImage, new ImageLoadingListener() {
-            @Override
-            public void onLoadingStarted(String imageUri, View view) {
+        if (bitmapImages.size() > position) {
+            holder.ivItemGridImage.setImageBitmap(bitmapImages.get(position));
+        } else {
+            imageLoader.displayImage(images.get(position), holder.ivItemGridImage, new ImageLoadingListener() {
+                @Override
+                public void onLoadingStarted(String imageUri, View view) {
 
-            }
+                }
 
-            @Override
-            public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                @Override
+                public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
 
-            }
+                }
 
-            @Override
-            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                imageLoaded++;
-                bitmapImages.add(loadedImage);
-            }
+                @Override
+                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                    imageLoaded++;
+                    bitmapImages.add(loadedImage);
+                }
 
-            @Override
-            public void onLoadingCancelled(String imageUri, View view) {
+                @Override
+                public void onLoadingCancelled(String imageUri, View view) {
 
-            }
-        });
+                }
+            });
+        }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

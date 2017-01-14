@@ -9,7 +9,6 @@
     <array name="list_icon_main_screen_menu">
         <item>@drawable/ic_home_near_me_now</item>
         <item>@drawable/ic_home_hotels</item>
-        <item>@drawable/ic_home_flights</item>
         <item>@drawable/ic_home_restaurants</item>
         <item>@drawable/ic_home_things_to_do</item>
         <item>@drawable/ic_guide_icon_circle</item>
@@ -18,8 +17,7 @@
     <string-array name="list_label_main_screen_menu">
         <item>Near Me Now</item>
         <item>Hotels</item>
-        <item>Flights</item>
-        <item>Restaurants</item>
+        <item>Food &amp; Drink</item>
         <item>Things to Do</item>
         <item>Destination Guides</item>
         <item>Forum</item>
@@ -47,5 +45,12 @@
         <item>Food</item>
     </string-array>
 
+    <string-array name="category_food">
+        <item>Breakfast</item>
+        <item>Lunch</item>
+        <item>Dinner</item>
+        <item>Drink</item>
+        <item>Other</item>
+    </string-array>
 
 </resources>

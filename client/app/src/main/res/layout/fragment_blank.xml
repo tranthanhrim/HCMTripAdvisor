@@ -1,0 +1,30 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="40sp"
+        android:textColor="@color/LightGray"
+        android:text="Oops!"
+        android:textAlignment="center"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="25sp"
+        android:textColor="@color/LightGray"
+        android:text="Something went wrong."
+        android:textAlignment="center"/>
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="Retry"
+        android:textAlignment="center"
+        android:textColor="@color/LightWhite"
+        android:textSize="@dimen/text_16"
+        android:background="@drawable/rounded_corner_green_bg"
+        android:padding="10dp"
+        android:layout_marginTop="10dp"/>
+</LinearLayout>

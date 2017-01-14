@@ -2,6 +2,7 @@ package com.example.tranthanhrim1995.hcmtripadvisor.Fragment;
 
 
 import android.content.res.TypedArray;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.example.tranthanhrim1995.hcmtripadvisor.Adapter.MainScreenMenuAdapter;
+import com.example.tranthanhrim1995.hcmtripadvisor.ConnectionChecking;
 import com.example.tranthanhrim1995.hcmtripadvisor.FragmentFactory;
 import com.example.tranthanhrim1995.hcmtripadvisor.ItemAdapter.ItemMainScreenMenu;
 import com.example.tranthanhrim1995.hcmtripadvisor.MainActivity;
@@ -50,6 +52,8 @@ public class MainFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ManageActionBar.getInstance().init(getActivity());
+//        ConnectionChecking.getInstance().init(getActivity());
+
         LinearLayout mainFragment = (LinearLayout)inflater.inflate(R.layout.fragment_main, null);
 
         fragmentManager = getActivity().getSupportFragmentManager();
@@ -68,18 +72,33 @@ public class MainFragment extends Fragment{
         lvMainScreenMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                if (position == 0){
-                    fragmentManager.beginTransaction().replace(R.id.container,
-                            FragmentFactory.getInstance().getNearMeFragment()).addToBackStack(null).commit();
+                if (!ConnectionChecking.getInstance().isInternetEnabled()) {
+                    FragmentFactory.getInstance().getInternetNotFoundDialog()
+                            .show(getActivity().getFragmentManager(), "no-internet");
+                    return;
                 }
-                if (position == 3) {
+                if (position == 0){ //Near me
+                    if (ConnectionChecking.getInstance().isGpsEnabled()) {
+                        fragmentManager.beginTransaction().replace(R.id.container,
+                                FragmentFactory.getInstance().getNearMeFragment()).addToBackStack(null).commit();
+                    } else {
+                        FragmentFactory.getInstance().getGpsNotFoundDialog()
+                                .show(getActivity().getFragmentManager(), "gps-not-found");
+                    }
+                } else if (position == 1) { //Hotel
+                    Bundle bundle = new Bundle();
+                    bundle.putString("category", "Hotel");
+                    Fragment fragment = FragmentFactory.getInstance().getDestinationFragment();
+                    fragment.setArguments(bundle);
+                    fragmentManager.beginTransaction().replace(R.id.container, fragment).addToBackStack(null).commit();
+
+                } else if (position == 2) { //Food
                     fragmentManager.beginTransaction().replace(R.id.container,
-                            FragmentFactory.getInstance().getNearMeFragment()).addToBackStack(null).commit();
-                }
-                else if (position == 4) {
+                            FragmentFactory.getInstance().getListFoodFragment()).addToBackStack(null).commit();
+                } else if (position == 3) { //Things to do
                     fragmentManager.beginTransaction().replace(R.id.container,
                             FragmentFactory.getInstance().getGroupedThingsToDoFragment()).addToBackStack(null).commit();
-                } else if (position == 5) {
+                } else if (position == 4) {
                     fragmentManager.beginTransaction().replace(R.id.container,
                             (Fragment)FragmentFactory.getInstance().getMapThingFragment()).addToBackStack(null).commit();
                 }

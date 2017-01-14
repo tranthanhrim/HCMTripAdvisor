@@ -26,7 +26,7 @@
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/icon_small_ticket_2x"
+                android:src="@drawable/star"
                 android:layout_marginRight="10dp"/>
             <TextView
                 android:layout_width="wrap_content"
@@ -38,8 +38,44 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"/>
 
+            <!--<ImageView-->
+                <!--android:id="@+id/btnListThingsToDo"-->
+                <!--android:layout_width="30dp"-->
+                <!--android:layout_height="15dp"-->
+                <!--android:src="@drawable/green_chevron_right"-->
+                <!--android:layout_marginRight="5dp"/>-->
+
+        </LinearLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvGroupedThings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <!--Destination-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50px"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="5dp"
+            android:gravity="center_vertical">
             <ImageView
-                android:id="@+id/btnListThingsToDo"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/icon_search_things_to_do"
+                android:layout_marginRight="10dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/text_16_grey"
+                android:text="Destinations"/>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+            <ImageView
+                android:id="@+id/btnListDestination"
                 android:layout_width="30dp"
                 android:layout_height="15dp"
                 android:src="@drawable/green_chevron_right"
@@ -47,7 +83,7 @@
 
         </LinearLayout>
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/rvGroupedThings"
+            android:id="@+id/rvDestination"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
@@ -74,7 +110,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"/>
             <ImageView
-                android:layout_width="15dp"
+                android:layout_width="30dp"
                 android:layout_height="15dp"
                 android:src="@drawable/green_chevron_right"
                 android:layout_marginRight="5dp"/>
@@ -84,64 +120,6 @@
             android:id="@+id/rvActivities"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
-        <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="200dp"-->
-            <!--android:orientation="horizontal">-->
-            <!--<RelativeLayout-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_weight="0.5"-->
-                <!--android:layout_marginRight="10dp"-->
-                <!--android:paddingRight="10dp"-->
-                <!--android:paddingBottom="10dp">-->
-                <!--<View-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="0dp"-->
-                    <!--android:layout_weight="1"/>-->
-                <!--<ImageView-->
-                    <!--android:id="@+id/ivActivitie1"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:scaleType="fitXY"-->
-                    <!--/>-->
-                <!--<TextView-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--style="@style/text_16_light_white"-->
-                    <!--android:text="Outdoor\nActivities"-->
-                    <!--android:textAlignment="textEnd"-->
-                    <!--android:layout_alignParentBottom="true"-->
-                    <!--android:layout_marginRight="10dp"/>-->
-
-            <!--</RelativeLayout>-->
-            <!--<RelativeLayout-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_weight="0.5"-->
-                <!--android:layout_marginRight="10dp"-->
-                <!--android:paddingRight="10dp"-->
-                <!--android:paddingBottom="10dp">-->
-                <!--<View-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="0dp"-->
-                    <!--android:layout_weight="1"/>-->
-                <!--<ImageView-->
-                    <!--android:id="@+id/ivActivitie2"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:scaleType="fitXY"/>-->
-                <!--<TextView-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--style="@style/text_16_light_white"-->
-                    <!--android:text="Food, Wine &amp;\n Nightlife"-->
-                    <!--android:textAlignment="textEnd"-->
-                    <!--android:layout_alignParentBottom="true"-->
-                    <!--android:layout_marginRight="10dp"/>-->
-
-            <!--</RelativeLayout>-->
-        <!--</LinearLayout>-->
 
         <!--Top Tours-->
         <LinearLayout
@@ -179,7 +157,7 @@
                 android:layout_weight="1"/>
 
             <ImageView
-                android:layout_width="15dp"
+                android:layout_width="30dp"
                 android:layout_height="15dp"
                 android:src="@drawable/green_chevron_right"
                 android:layout_marginRight="5dp"

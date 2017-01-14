@@ -6,14 +6,18 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.example.tranthanhrim1995.hcmtripadvisor.CircleTransform;
 import com.example.tranthanhrim1995.hcmtripadvisor.FragmentFactory;
 import com.example.tranthanhrim1995.hcmtripadvisor.GoogleApiClientInstance;
 import com.example.tranthanhrim1995.hcmtripadvisor.MainActivity;
@@ -25,6 +29,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.squareup.picasso.Picasso;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,12 +42,14 @@ public class SigninFragment extends Fragment implements GoogleApiClient.OnConnec
         // Required empty public constructor
     }
 
+    LinearLayout nav_header_main;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         fragmentManager = getActivity().getSupportFragmentManager();
         LinearLayout signinFragment = (LinearLayout)inflater.inflate(R.layout.fragment_signin, null);
+        nav_header_main = (LinearLayout)inflater.inflate(R.layout.nav_header_main, null);
         
         SignInButton signInButton = (SignInButton) signinFragment.findViewById(R.id.sign_in_button);
         signInButton.setSize(SignInButton.SIZE_STANDARD);
@@ -61,15 +68,18 @@ public class SigninFragment extends Fragment implements GoogleApiClient.OnConnec
         });
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
+
+        //User logged in
         if (sharedPref.contains(getString(R.string.google_id))
             && !sharedPref.getString(getString(R.string.google_id), "").isEmpty()) {
             Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(
                     GoogleApiClientInstance.getInstance(getActivity()).getGoogleApiClient());
             startActivityForResult(signInIntent, RC_SIGN_IN);
-        } else {
-            fragmentManager.beginTransaction().replace(R.id.container,
-                FragmentFactory.getInstance().getSigninFragment()).commit();
         }
+//        else {
+//            fragmentManager.beginTransaction().replace(R.id.container,
+//                FragmentFactory.getInstance().getSigninFragment()).commit();
+//        }
 
         return signinFragment;
     }
@@ -105,7 +115,8 @@ public class SigninFragment extends Fragment implements GoogleApiClient.OnConnec
             fragmentManager.beginTransaction().replace(R.id.container,
                     FragmentFactory.getInstance().getMainFragment()).commit();
 //            mStatusTextView.setText(getString(R.string.signed_in_fmt, acct.getDisplayName()));
-//            updateUI(true);
+//            updateUI();
+            MainActivity.updateInfoUserFromOutside(acct.getDisplayName(), acct.getEmail(), acct.getPhotoUrl().toString());
         } else {
             // Signed out, show unauthenticated UI.
 //            updateUI(false);
@@ -113,7 +124,17 @@ public class SigninFragment extends Fragment implements GoogleApiClient.OnConnec
     }
 
     private void updateUI() {
+        NavigationView navigationView = (NavigationView) nav_header_main.findViewById(R.id.nav_view);
+        View header = navigationView.getHeaderView(0);
+        ImageView avatar = (ImageView)header.findViewById(R.id.avatarInfo);
+        TextView username = (TextView)header.findViewById(R.id.usernameInfo);
+        TextView email = (TextView)header.findViewById(R.id.emailInfo);
 
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        username.setText(sharedPref.getString(getString(R.string.display_name), ""));
+        email.setText(sharedPref.getString(getString(R.string.email), ""));
+        Picasso.with(getActivity()).load(sharedPref.getString(getString(R.string.photo_url), ""))
+                .transform(new CircleTransform()).into(avatar);
     }
 
     @Override

@@ -1,9 +1,11 @@
 package com.example.tranthanhrim1995.hcmtripadvisor;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -44,8 +46,17 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     FragmentManager fragmentManager = getSupportFragmentManager();
+    static Context context;
+    static NavigationView navigationView;
+    LoadingDataGlobal taskLoadingData;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ConnectionChecking.getInstance().init(this);
+        context = getBaseContext();
+        taskLoadingData = new LoadingDataGlobal();
+        taskLoadingData.execute();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         BackToMainScreen.setFragmentManager(getSupportFragmentManager());
@@ -58,27 +69,33 @@ public class MainActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        if (!ConnectionChecking.getInstance().isInternetEnabled()) {
+            FragmentFactory.getInstance().getInternetNotFoundDialog().show(getFragmentManager(), "no-internet");
+        }
+        fragmentManager.beginTransaction().replace(R.id.container,
+                FragmentFactory.getInstance().getSigninFragment()).commit();
 
         //Change avatar and name
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         if (sharedPref.contains(getString(R.string.google_id))
                 && !sharedPref.getString(getString(R.string.google_id), "").isEmpty()) {
-            View header = navigationView.getHeaderView(0);
-            ImageView avatar = (ImageView)header.findViewById(R.id.avatarInfo);
-            TextView username = (TextView)header.findViewById(R.id.usernameInfo);
-            TextView email = (TextView)header.findViewById(R.id.emailInfo);
-
-            username.setText(sharedPref.getString(getString(R.string.display_name), ""));
-            email.setText(sharedPref.getString(getString(R.string.email), ""));
-            Picasso.with(this).load(sharedPref.getString(getString(R.string.photo_url), ""))
-                        .transform(new CircleTransform()).into(avatar);
+//            View header = navigationView.getHeaderView(0);
+//            ImageView avatar = (ImageView)header.findViewById(R.id.avatarInfo);
+//            TextView username = (TextView)header.findViewById(R.id.usernameInfo);
+//            TextView email = (TextView)header.findViewById(R.id.emailInfo);
+//
+//            username.setText(sharedPref.getString(getString(R.string.display_name), ""));
+//            email.setText(sharedPref.getString(getString(R.string.email), ""));
+//            Picasso.with(this).load(sharedPref.getString(getString(R.string.photo_url), ""))
+//                        .transform(new CircleTransform()).into(avatar);
+            updateInfoUser(navigationView, sharedPref.getString(getString(R.string.display_name), ""),
+                    sharedPref.getString(getString(R.string.email), ""),
+                    sharedPref.getString(getString(R.string.photo_url), ""));
         }
 
-
-        fragmentManager.beginTransaction().replace(R.id.container,
-            FragmentFactory.getInstance().getSigninFragment()).commit();
 
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this).build();
         ImageLoader.getInstance().init(config);
@@ -188,5 +205,32 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    private static void updateInfoUser(NavigationView navigationView, String username, String email, String photoUrl) {
+        View header = navigationView.getHeaderView(0);
+        ImageView ivAvatar = (ImageView)header.findViewById(R.id.avatarInfo);
+        TextView tvUsername = (TextView)header.findViewById(R.id.usernameInfo);
+        TextView tvEmail = (TextView)header.findViewById(R.id.emailInfo);
+
+        tvUsername.setText(username);
+        tvEmail.setText(email);
+        Picasso.with(context).load(photoUrl).transform(new CircleTransform()).into(ivAvatar);
+    }
+
+    public static void updateInfoUserFromOutside(String username, String email, String photoUrl) {
+        updateInfoUser(navigationView, username, email, photoUrl);
+    }
+
+    private static class LoadingDataGlobal extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            DataGlobal.getInstance().init(context);
+            //Inject fragment to DataGlobal
+//            DataGlobal.getInstance().setGroupedThingsToDoFragment(
+//                    FragmentFactory.getInstance().getGroupedThingsToDoFragment()
+//            );
+            return null;
+        }
+    }
 
 }

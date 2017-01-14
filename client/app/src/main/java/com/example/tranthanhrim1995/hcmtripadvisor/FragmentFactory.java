@@ -3,9 +3,11 @@ package com.example.tranthanhrim1995.hcmtripadvisor;
 import android.app.DialogFragment;
 import android.os.Bundle;
 
+import com.example.tranthanhrim1995.hcmtripadvisor.Fragment.BaseListThingFragment;
 import com.example.tranthanhrim1995.hcmtripadvisor.Fragment.DetailThingFragment;
 import com.example.tranthanhrim1995.hcmtripadvisor.Fragment.GridImageFragment;
 import com.example.tranthanhrim1995.hcmtripadvisor.Fragment.GroupedThingsToDoFragment;
+import com.example.tranthanhrim1995.hcmtripadvisor.Fragment.ListFoodFragment;
 import com.example.tranthanhrim1995.hcmtripadvisor.Fragment.ListThingsToDoFragment;
 import com.example.tranthanhrim1995.hcmtripadvisor.Fragment.MainFragment;
 import com.example.tranthanhrim1995.hcmtripadvisor.Fragment.NearMeNowFragment;
@@ -35,9 +37,15 @@ public class FragmentFactory {
     private SigninFragment signinFragment;
     private GridImageFragment gridImageFragment;
     private SpecificImageFragment specificImageFragment;
+    private BaseListThingFragment destinationFragment;
+    private BaseListThingFragment hotelFragment;
+    private BaseListThingFragment foodFragment;
+
+    private ListFoodFragment listFoodFragment;
 
     /*Dialog Fragment*/
     private MessageDialogFragment gpsNotFoundDialog;
+    private MessageDialogFragment internetNotFoundDialog;
     private RateDialogFragment rateDialogFragment;
     private ListCommentDialogFragment listCommentDialogFragment;
 
@@ -55,11 +63,17 @@ public class FragmentFactory {
         setSigninFragment(new SigninFragment());
         setGridImageFragment(new GridImageFragment());
         setSpecificImageFragment(new SpecificImageFragment());
+        setDestinationFragment(new BaseListThingFragment());
+        setHotelFragment(new BaseListThingFragment());
+        setFoodFragment(new BaseListThingFragment());
+
+        setListFoodFragment(new ListFoodFragment());
 
         /*Dialog Fragment*/
         setGpsNotFoundDialog(new MessageDialogFragment());
         setRateDialogFragment(new RateDialogFragment());
         setListCommentDialogFragment(new ListCommentDialogFragment());
+        setInternetNotFoundDialog(new MessageDialogFragment());
     }
 
     public static FragmentFactory getInstance() {
@@ -182,5 +196,48 @@ public class FragmentFactory {
 
     public void setListCommentDialogFragment(ListCommentDialogFragment listCommentDialogFragment) {
         this.listCommentDialogFragment = listCommentDialogFragment;
+    }
+
+    public MessageDialogFragment getInternetNotFoundDialog() {
+        return internetNotFoundDialog;
+    }
+
+    public void setInternetNotFoundDialog(MessageDialogFragment internetNotFoundDialog) {
+        this.internetNotFoundDialog = internetNotFoundDialog;
+        Bundle bundle = new Bundle();
+        bundle.putString("messageDialog", "No internet access!");
+        this.internetNotFoundDialog.setArguments(bundle);
+    }
+
+    public BaseListThingFragment getDestinationFragment() {
+        return destinationFragment;
+    }
+
+    public void setDestinationFragment(BaseListThingFragment destinationFragment) {
+        this.destinationFragment = destinationFragment;
+    }
+
+    public BaseListThingFragment getHotelFragment() {
+        return hotelFragment;
+    }
+
+    public void setHotelFragment(BaseListThingFragment hotelFragment) {
+        this.hotelFragment = hotelFragment;
+    }
+
+    public BaseListThingFragment getFoodFragment() {
+        return foodFragment;
+    }
+
+    public void setFoodFragment(BaseListThingFragment foodFragment) {
+        this.foodFragment = foodFragment;
+    }
+
+    public ListFoodFragment getListFoodFragment() {
+        return listFoodFragment;
+    }
+
+    public void setListFoodFragment(ListFoodFragment listFoodFragment) {
+        this.listFoodFragment = listFoodFragment;
     }
 }

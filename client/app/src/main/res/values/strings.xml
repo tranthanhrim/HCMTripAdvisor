@@ -15,4 +15,7 @@
     <string name="email">email</string>
     <string name="google_id_token">google-id-token</string>
     <string name="photo_url">photo-url</string>
+
+    <!-- Server name -->
+    <string name="server_name">https://hcmtripadvisor.herokuapp.com/</string>
 </resources>

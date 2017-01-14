@@ -81,7 +81,7 @@ public class NearMeFragment extends BaseFragment implements
                              Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         fragmentManager = getActivity().getSupportFragmentManager();
-        LinearLayout nearMeFragment = (LinearLayout)inflater.inflate(R.layout.fragment_near_me, null);
+        LinearLayout nearMeFragment = (LinearLayout) inflater.inflate(R.layout.fragment_near_me, null);
 
         spCategory = (Spinner) nearMeFragment.findViewById(R.id.spCategory);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
@@ -110,19 +110,13 @@ public class NearMeFragment extends BaseFragment implements
             }
         });
 
-        rvNearMe = (RecyclerView)nearMeFragment.findViewById(R.id.rvNearMe);
+        rvNearMe = (RecyclerView) nearMeFragment.findViewById(R.id.rvNearMe);
         mAdapter = new ListThingsToDoAdapter(listThing, getActivity().getSupportFragmentManager());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         rvNearMe.setLayoutManager(mLayoutManager);
         rvNearMe.setItemAnimator(new DefaultItemAnimator());
         rvNearMe.setAdapter(mAdapter);
 
-        fragmentManager = getActivity().getSupportFragmentManager();
-        LocationManager manager = (LocationManager) getActivity().getSystemService(getActivity().LOCATION_SERVICE);
-
-        if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            FragmentFactory.getInstance().getGpsNotFoundDialog().show(getActivity().getFragmentManager(), "gps-not-found");
-        }
         mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
@@ -144,7 +138,6 @@ public class NearMeFragment extends BaseFragment implements
             showProgressDialog();
             callGetThingsNearMe.enqueue(getThingsNearMeDelegate);
         }
-
         return nearMeFragment;
     }
 

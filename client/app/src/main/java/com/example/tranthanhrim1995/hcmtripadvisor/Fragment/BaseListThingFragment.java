@@ -16,6 +16,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.example.tranthanhrim1995.hcmtripadvisor.Adapter.ListThingsToDoAdapter;
+import com.example.tranthanhrim1995.hcmtripadvisor.DataGlobal;
+import com.example.tranthanhrim1995.hcmtripadvisor.ManageActionBar;
 import com.example.tranthanhrim1995.hcmtripadvisor.Model.Thing;
 import com.example.tranthanhrim1995.hcmtripadvisor.R;
 
@@ -32,6 +34,8 @@ public class BaseListThingFragment extends Fragment {
     ListThingsToDoAdapter mAdapter;
     FragmentManager fragmentManager;
 
+    String category = "";
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,10 +43,10 @@ public class BaseListThingFragment extends Fragment {
     }
 
     public BaseListThingFragment() {
-        for(int i = 0; i < 7; i++) {
-            String name = "Destination" + i;
-            listThing.add(new Thing("Museums", name, "This is Detail"));
-        }
+//        for(int i = 0; i < 7; i++) {
+//            String name = "Destination" + i;
+//            listThing.add(new Thing("Museums", name, "This is Detail"));
+//        }
     }
 
     @Override
@@ -65,18 +69,29 @@ public class BaseListThingFragment extends Fragment {
     public void onResume() {
         super.onResume();
 //        setHasOptionsMenu(true);
+        Bundle bundle = getArguments();
+        category = bundle.getString("category");
+        if (category.equals("Destination")) {
+            listThing.clear();
+            listThing.addAll(DataGlobal.getInstance().getListTopThingsTodo());
+            mAdapter.notifyDataSetChanged();
+            ManageActionBar.getInstance().setTitle("Destination");
+        } else if (category.equals("Hotel")) {
+            ManageActionBar.getInstance().setTitle("Hotel");
+        }
+        ManageActionBar.getInstance().showButtonBack();
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_thing, menu);
+        inflater.inflate(R.menu.menu_without_nearest, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_nearest) {
+        if (id == R.id.action_promotion) {
 
         } else if (id == R.id.action_price_decrease) {
 

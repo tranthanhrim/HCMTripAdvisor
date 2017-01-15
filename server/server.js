@@ -18,6 +18,7 @@ var Room = require('./models/room');
 var Detail = require('./models/detail');
 var Review = require('./models/review');
 var Image = require('./models/image');
+var RatingSummary = require('./models/ratingsummary');
 
 //API gets all Things to do
 app.get('/thingstodo', function(req, res) {
@@ -66,7 +67,6 @@ app.get('/details_id', function(req, res) {
 //---------User API--------
 //ADD
 app.post('/users', function(req, res) {
-
     // create a sample user
     var user = new User({
         _ma: req.body.ma,
@@ -75,19 +75,29 @@ app.post('/users', function(req, res) {
         _avatar: req.body.avatar
     });
 
-    // save the user
-    user.save(function(err) {
-        if (err) {
-            res.status(400).json({
-                'error': 'bad request'
-            });
-        }
 
-        console.log('User saved successfully');
-        res.status(201).send({
-            'message': 'user created'
-        });
+    User.find({
+        _ma: user._ma
+    }).select().exec(function(err, users) {
+    	console.log(user);
+        	if(users.length < 1)
+        	{
+        		// save the user
+			    user.save(function(err) {
+			        if (err) {
+			            res.status(400).json({
+			                'error': 'bad request'
+			            });
+			        }
+
+			        console.log('User saved successfully');
+			        res.status(201).send({
+			            'message': 'user created'
+			        });
+			    });
+        	}
     });
+    
 });
 
 //DELETE
@@ -162,6 +172,40 @@ app.get('/thingstodo_type', function(req, res) {
         }
     });
 });
+
+//++API post rate
+// app.post('/ratings', function(req, res) {
+
+//     // create a sample ratingsummary
+//     var ratingsummary = new RatingSummary({
+//         _idUser: req.body._idUser,
+//         _idThing: req.body._idThing,
+//         _rate: req.body._rate
+//     });
+
+//     RatingSummary.find({
+//         _ma: user._ma
+//     }).select().exec(function(err, images) {
+//         if (err) {
+// 		    // save the user
+// 		    user.save(function(err) {
+// 		        if (err) {
+// 		            res.status(400).json({
+// 		                'error': 'bad request'
+// 		            });
+// 		        }
+
+// 		        console.log('User saved successfully');
+// 		        res.status(201).send({
+// 		            'message': 'user created'
+// 		        });
+// 		    });
+//         } else {
+//         	return;
+//         }
+//     });
+    
+// });
 
 var port = process.env.PORT || 3000;
 app.listen(port);

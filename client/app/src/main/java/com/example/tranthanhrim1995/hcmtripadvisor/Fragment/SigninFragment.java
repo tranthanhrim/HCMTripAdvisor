@@ -19,10 +19,13 @@ import android.widget.TextView;
 
 import com.example.tranthanhrim1995.hcmtripadvisor.CircleTransform;
 import com.example.tranthanhrim1995.hcmtripadvisor.ConnectionChecking;
+import com.example.tranthanhrim1995.hcmtripadvisor.DataGlobal;
 import com.example.tranthanhrim1995.hcmtripadvisor.FragmentFactory;
 import com.example.tranthanhrim1995.hcmtripadvisor.GoogleApiClientInstance;
 import com.example.tranthanhrim1995.hcmtripadvisor.MainActivity;
+import com.example.tranthanhrim1995.hcmtripadvisor.Model.User;
 import com.example.tranthanhrim1995.hcmtripadvisor.R;
+import com.example.tranthanhrim1995.hcmtripadvisor.WebServiceInterface;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -31,6 +34,13 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.squareup.picasso.Picasso;
+
+import okhttp3.OkHttpClient;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -125,6 +135,21 @@ public class SigninFragment extends Fragment implements GoogleApiClient.OnConnec
 //            mStatusTextView.setText(getString(R.string.signed_in_fmt, acct.getDisplayName()));
 //            updateUI();
             MainActivity.updateInfoUserFromOutside(acct.getDisplayName(), acct.getEmail(), acct.getPhotoUrl().toString());
+
+//            WebServiceInterface service = DataGlobal.getInstance().getService();
+//            User user = new User(acct.getId(), acct.getEmail(), acct.getDisplayName(), acct.getPhotoUrl().toString());
+            OkHttpClient client = new OkHttpClient.Builder().build();
+
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(getActivity().getString(R.string.server_name))
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .client(client)
+                    .build();
+            WebServiceInterface service = retrofit.create(WebServiceInterface.class);
+            User user = new User(acct.getId(), acct.getEmail(), acct.getDisplayName(), acct.getPhotoUrl().toString());
+//            service.createUser(acct.getId(), acct.getEmail(), acct.getDisplayName(), acct.getPhotoUrl().toString());
+//            service.createUser(user);
+
         } else {
             // Signed out, show unauthenticated UI.
 //            updateUI(false);

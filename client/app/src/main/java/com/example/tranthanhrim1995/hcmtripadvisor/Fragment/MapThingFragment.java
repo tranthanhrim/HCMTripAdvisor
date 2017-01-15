@@ -14,6 +14,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.example.tranthanhrim1995.hcmtripadvisor.MainActivity;
+import com.example.tranthanhrim1995.hcmtripadvisor.ManageActionBar;
 import com.example.tranthanhrim1995.hcmtripadvisor.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -40,9 +41,6 @@ public class MapThingFragment extends Fragment implements OnMapReadyCallback {
         final SupportMapFragment mapFragment = (SupportMapFragment) fm.findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        ((MainActivity) getActivity()).getSupportActionBar().setTitle("Location");
-        ((MainActivity) getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
-        ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         return mapThingFragment;
 
     }
@@ -61,8 +59,7 @@ public class MapThingFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onResume() {
         super.onResume();
-        ((MainActivity) getActivity()).getSupportActionBar().setTitle("Location");
-        ((MainActivity) getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
-        ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ManageActionBar.getInstance().setTitle("Map");
+        ManageActionBar.getInstance().showButtonBack();
     }
 }

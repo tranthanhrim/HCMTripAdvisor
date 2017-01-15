@@ -26,11 +26,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tranthanhrim1995.hcmtripadvisor.Adapter.GroupedThingsToDoAdapter;
+import com.example.tranthanhrim1995.hcmtripadvisor.DataGlobal;
 import com.example.tranthanhrim1995.hcmtripadvisor.FragmentFactory;
 import com.example.tranthanhrim1995.hcmtripadvisor.MainActivity;
 import com.example.tranthanhrim1995.hcmtripadvisor.ManageActionBar;
+import com.example.tranthanhrim1995.hcmtripadvisor.Model.Location;
 import com.example.tranthanhrim1995.hcmtripadvisor.Model.Thing;
 import com.example.tranthanhrim1995.hcmtripadvisor.R;
+import com.example.tranthanhrim1995.hcmtripadvisor.WebServiceInterface;
 import com.kobakei.ratethisapp.RateThisApp;
 
 import java.util.ArrayList;
@@ -46,7 +49,7 @@ public class DetailThingFragment extends Fragment {
 
     ArrayList<Thing> listHotel, listFood;
     RecyclerView rvHotelDetailThing, rvFoodDetailThing, rvListComment;
-    ImageView btnMapDetail, btnCheckinDetail, btnLikeDetail;
+    ImageView btnCheckinDetail, btnLikeDetail;
     ImageView btnClickRate;
 
     GroupedThingsToDoAdapter mAdapterHotel, mAdapterFood;
@@ -96,6 +99,9 @@ public class DetailThingFragment extends Fragment {
         rvFoodDetailThing.setItemAnimator(new DefaultItemAnimator());
         rvFoodDetailThing.setAdapter(mAdapterFood);
 
+        WebServiceInterface service = DataGlobal.getInstance().getService();
+
+
         //RecyclerView List Comment
 //        RecyclerView.LayoutManager mLayoutManagerListComment = new LinearLayoutManager(getActivity().getApplicationContext());
 //        rvListComment = (RecyclerView)detailThingFragment.findViewById(R.id.rvListComment);
@@ -103,14 +109,6 @@ public class DetailThingFragment extends Fragment {
 //        rvListComment.setHasFixedSize(true);
 
         //Button map
-        btnMapDetail = (ImageView) detailThingFragment.findViewById(R.id.btnMapDetail);
-        btnMapDetail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                fragmentManager.beginTransaction().replace(R.id.container,
-                        FragmentFactory.getInstance().getMapThingFragment()).addToBackStack(null).commit();
-            }
-        });
 
         //Button rate
         btnClickRate = (ImageView)detailThingFragment.findViewById(R.id.btnClickRate);
@@ -122,6 +120,14 @@ public class DetailThingFragment extends Fragment {
         });
 
         return detailThingFragment;
+    }
+
+    @OnClick(R.id.btnMapDetail) void showMap() {
+//        Bundle bundle = new Bundle();
+//        Location location = new Location;
+//        bundle.putParcelable();
+        Fragment fragment = FragmentFactory.getInstance().getMapThingFragment();
+        fragmentManager.beginTransaction().replace(R.id.container, fragment).addToBackStack(null).commit();
     }
 
     @OnClick(R.id.layoutImageDetail) void showGridImage() {
@@ -142,4 +148,6 @@ public class DetailThingFragment extends Fragment {
         ManageActionBar.getInstance().setTitle("Detail thing");
         ManageActionBar.getInstance().showButtonBack();
     }
+
+
 }

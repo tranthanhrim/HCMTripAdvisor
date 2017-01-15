@@ -57,6 +57,10 @@ public class DataGlobal {
 
     }
 
+    public WebServiceInterface getService() {
+        return service;
+    }
+
     public ArrayList<Thing> getListTopThingsTodo() {
         return listTopThingsTodo;
     }

@@ -48,7 +48,7 @@ app.get('/images', function(req, res) {
 });
 
 //API gets details of an ID's thingstodo
-app.get('/details', function(req, res) {
+app.get('/details_id', function(req, res) {
 	var detailSearch = req.query.detailSearch;
 	Detail.find({
         _ma: detailSearch
@@ -145,6 +145,23 @@ app.put('/users/:ma', function(req, res) {
     });
 });
 
+//API gets thingstodo according Type attritude
+app.get('/thingstodo_type', function(req, res) {
+	console.log('----------Vo ham----------')
+	var typeSearch = req.query.typeSearch;
+	console.log('--------Type Search--------', typeSearch)
+	ThingsToDo.find({
+        _type: typeSearch
+    }).select().exec(function(err, things) {
+        if (err) {
+            return res.status(404).send('Not found');
+            console.log('Failed!!');
+        } else {
+            res.status(200).send(things);
+            console.log(things);
+        }
+    });
+});
 
 var port = process.env.PORT || 3000;
 app.listen(port);

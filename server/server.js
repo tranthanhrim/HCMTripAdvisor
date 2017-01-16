@@ -53,13 +53,13 @@ app.get('/details_id', function(req, res) {
 	var detailSearch = req.query.detailSearch;
 	Detail.find({
         _ma: detailSearch
-    }).select().exec(function(err, details) {
+    }).select().limit(1).exec(function(err, detail1) {
         if (err) {
             return res.status(404).send('Not found');
             console.log('Failed!!');
         } else {
-            res.status(200).send(details);
-            console.log(details);
+            res.status(200).send(detail1);
+            console.log(detail1);
         }
     });
 });

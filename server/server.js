@@ -303,6 +303,10 @@ var getDistanceFromLatLonInKm = function(lat1,lon1,lat2,lon2) {
   return d;
 }
 
+function deg2rad(deg) {
+  return deg * (Math.PI/180)
+}
+
 //Lấy top 5 thingstodo
 app.get('/topthingstodo', function(req, res) {
 	ThingsToDo.find({
@@ -317,7 +321,7 @@ app.get('/topthingstodo', function(req, res) {
     });
 });
 
-//API gets các địa điểm gần nhất
+//API get các địa điểm gần nhất
 app.get('/nearme', function(req, res) {
 	var lon = req.query.lon;
 	var lat = req.query.lat;
@@ -329,26 +333,35 @@ app.get('/nearme', function(req, res) {
             console.log('Failed!!');
         } else {
         	var tmp_array = [];
-        	var object_tmp = new Object;
+
         	for(var i=0; i< things.length; i++){
-        		object_tmp._idThing=things[i]._ma;
-        		object_tmp._distance = getDistanceFromLatLonInKm(lon, things[i]._map._longatitude, lat, things[i]._map.latitude);
+        		var object_tmp = {
+	        		_idThing: null,
+	        		_distance: null
+	        	};
+        		object_tmp._idThing = things[i]._ma;		
+        		var distance = getDistanceFromLatLonInKm(lon, things[i]._map.longtitude, lat, things[i]._map.latitude);
+        		object_tmp._distance = distance;
         		tmp_array.push(object_tmp);
         	}
 
         	//sort lại
-        	for(var i=0; i<tmp_array.length; i++){
-        		for(var j=1; j<tmp_array.length-1; j++)
-        		{
-        			if(tmp_array[i]._distance > tmp_array[j]._distance)
-        			{
-        				var tmp_var;
-        				tmp_array[i] = tmp_var;
-        				tmp_var = tmp_array[j];
-        				tmp_array[j] = tmp_array[i];
-        			}
-        		}	
-        	}
+        	// for(var i=0; i<tmp_array.length; i++){
+        	// 	for(var j=1; j<tmp_array.length-1; j++)
+        	// 	{
+        	// 		if(tmp_array[i]._distance > tmp_array[j]._distance)
+        	// 		{
+        	// 			var tmp_var;
+        	// 			tmp_array[i] = tmp_var;
+        	// 			tmp_var = tmp_array[j];
+        	// 			tmp_array[j] = tmp_array[i];
+        	// 		}
+        	// 	}	
+        	// }
+        	tmp_array.sort(function(a, b) {
+        		return a._distance > b._distance;
+        	});
+        	console.log(tmp_array);
             res.status(200).send(tmp_array);
             // console.log(things);
         }

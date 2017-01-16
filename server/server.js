@@ -173,6 +173,21 @@ app.get('/thingstodo_type', function(req, res) {
     });
 });
 
+//API gets thingstodo according Type trừ Hotel và Food
+app.get('/thingstodo_destination', function(req, res) {
+	ThingsToDo.find({
+        _type: { $nin: ["Hotels", "Food & Drink"] }
+    }).select().exec(function(err, things) {
+        if (err) {
+            return res.status(404).send('Not found');
+            console.log('Failed!!');
+        } else {
+            res.status(200).send(things);
+            console.log(things);
+        }
+    });
+});
+
 
 //++API post rate
 //Hàm cập nhật lại

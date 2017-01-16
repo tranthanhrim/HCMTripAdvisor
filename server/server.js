@@ -180,11 +180,13 @@ app.post('/ratings', function(req, res) {
 	var _idUser = req.body._idUser;
     var _idThing = req.body._idThing;
     var _rate = req.body._rate;
+    var _time = new Date();
 
     // create a sample ratingsummary
     var ratingsummary = new RatingSummary({
     	_thingsToDoID: _idThing,
-    	_rate: _rate
+    	_rate: _rate,
+    	_time: _time
     });
 
    	//Lấy ma rating cao nhất đang có trong bảng RatingSummary
@@ -214,6 +216,7 @@ app.post('/ratings', function(req, res) {
 
 	    //Cập nhật lại điểm Rate trong ThingsToDo
 		ThingsToDo.find({_ma: _idThing}).limit(1).exec(function(err, rating1) {
+			rating1._ratingCount = rating1._ratingCount +1;
 	    	rating1._ratingSummary = (rating1._ratingSummary + _rate)/2;
 
 	    	//Cập nhật lại cái ThingsToDo
@@ -240,11 +243,13 @@ app.post('/comments', function(req, res) {
 	var _idUser = req.body._idUser;
     var _idThing = req.body._idThing;
     var _content = req.body._content;
+    var _time = new Date();
 
     // create a sample ratingsummary
     var review = new Review({
     	_thingsToDoID: _idThing,
-    	_content: _content
+    	_content: _content,
+    	_time: _time
     });
 
     User.find({_ma: _idUser}).limit(1).exec(function(err, user1) {

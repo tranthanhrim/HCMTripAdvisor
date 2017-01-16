@@ -173,39 +173,100 @@ app.get('/thingstodo_type', function(req, res) {
     });
 });
 
+
 //++API post rate
-// app.post('/ratings', function(req, res) {
+//Hàm cập nhật lại
+app.post('/ratings', function(req, res) {
+	var _idUser = req.body._idUser;
+    var _idThing = req.body._idThing;
+    var _rate = req.body._rate;
 
-//     // create a sample ratingsummary
-//     var ratingsummary = new RatingSummary({
-//         _idUser: req.body._idUser,
-//         _idThing: req.body._idThing,
-//         _rate: req.body._rate
-//     });
+    // create a sample ratingsummary
+    var ratingsummary = new RatingSummary({
+    	_thingsToDoID: _idThing,
+    	_rate: _rate
+    });
 
-//     RatingSummary.find({
-//         _ma: user._ma
-//     }).select().exec(function(err, images) {
-//         if (err) {
-// 		    // save the user
-// 		    user.save(function(err) {
-// 		        if (err) {
-// 		            res.status(400).json({
-// 		                'error': 'bad request'
-// 		            });
-// 		        }
+   	//Lấy ma rating cao nhất đang có trong bảng RatingSummary
+   	// var _maxID;
+   	// RatingSummary.find({
+    // }).select(_ma -_id).sort(1).limit(1).exec(function(err, rating1) {
+    // 	ratingsummary._ma = rating1 + 1;
+    // });
 
-// 		        console.log('User saved successfully');
-// 		        res.status(201).send({
-// 		            'message': 'user created'
-// 		        });
-// 		    });
-//         } else {
-//         	return;
-//         }
-//     });
+    User.find({_ma: _idUser}).limit(1).exec(function(err, user1) {
+    	var _getRateID = user1._rateID;
+    	ratingsummary._ma = _getRateID;
+
+    	// save the ratings
+	    ratingsummary.save(function(err) {
+	        if (err) {
+	            res.status(400).json({
+	                'error': 'bad request'
+	            });
+	        }
+
+	        console.log('Rating saved successfully');
+	        res.status(201).send({
+	            'message': 'Rating created'
+	        });
+	    });
+
+	    //Cập nhật lại điểm Rate trong ThingsToDo
+		ThingsToDo.find({_ma: _idThing}).limit(1).exec(function(err, rating1) {
+	    	rating1._ratingSummary = (rating1._ratingSummary + _rate)/2;
+
+	    	//Cập nhật lại cái ThingsToDo
+	    	rating1.save(function(err) {
+	        if (err) {
+	            res.status(400).json({
+	                'error': 'bad request'
+	            });
+	        }
+
+	        console.log('Rating saved successfully');
+	        res.status(201).send({
+	            'message': 'Rating created'
+	        });
+	    });
+	    });
+    });
     
-// });
+});
+
+//++API post comment
+//Hàm cập nhật lại
+app.post('/comments', function(req, res) {
+	var _idUser = req.body._idUser;
+    var _idThing = req.body._idThing;
+    var _content = req.body._content;
+
+    // create a sample ratingsummary
+    var review = new Review({
+    	_thingsToDoID: _idThing,
+    	_content: _content
+    });
+
+    User.find({_ma: _idUser}).limit(1).exec(function(err, user1) {
+    	var _getReViewID = user1._reviewID;
+    	review._ma = _getRateID;
+
+    	// save the comment
+	    review.save(function(err) {
+	        if (err) {
+	            res.status(400).json({
+	                'error': 'bad request'
+	            });
+	        }
+
+	        console.log('Rating saved successfully');
+	        res.status(201).send({
+	            'message': 'Rating created'
+	        });
+	    });
+    });
+    
+});
 
 var port = process.env.PORT || 3000;
 app.listen(port);

@@ -319,8 +319,8 @@ app.get('/topthingstodo', function(req, res) {
 
 //API gets các địa điểm gần nhất
 app.get('/nearme', function(req, res) {
-	var lon = req.body.lon;
-	var lat = req.body.lat;
+	var lon = req.query.lon;
+	var lat = req.query.lat;
 
 	ThingsToDo.find({
     }).exec(function(err, things) {

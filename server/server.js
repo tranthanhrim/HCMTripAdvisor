@@ -268,8 +268,8 @@ app.post('/comments', function(req, res) {
     });
 
     User.find({_ma: _idUser}).limit(1).exec(function(err, user1) {
-    	var _getReViewID = user1._reviewID;
-    	review._ma = _getRateID;
+    	var _getReviewID = user1._reviewID;
+    	review._ma = _getReviewID;
 
     	// save the comment
 	    review.save(function(err) {
@@ -313,6 +313,44 @@ app.get('/topthingstodo', function(req, res) {
         } else {
             res.status(200).send(things);
             console.log(things);
+        }
+    });
+});
+
+//API gets các địa điểm gần nhất
+app.get('/nearme', function(req, res) {
+	var lon = req.body.lon;
+	var lat = req.body.lat;
+
+	ThingsToDo.find({
+    }).exec(function(err, things) {
+        if (err) {
+            return res.status(404).send('Not found');
+            console.log('Failed!!');
+        } else {
+        	var tmp_array = [];
+        	var object_tmp = new Object;
+        	for(var i=0; i< things.length; i++){
+        		object_tmp._idThing=things[i]._ma;
+        		object_tmp._distance = getDistanceFromLatLonInKm(lon, things[i]._map._longatitude, lat, things[i]._map.latitude);
+        		tmp_array.push(object_tmp);
+        	}
+
+        	//sort lại
+        	for(var i=0; i<tmp_array.length; i++){
+        		for(var j=1; j<tmp_array.length-1; j++)
+        		{
+        			if(tmp_array[i]._distance > tmp_array[j]._distance)
+        			{
+        				var tmp_var;
+        				tmp_array[i] = tmp_var;
+        				tmp_var = tmp_array[j];
+        				tmp_array[j] = tmp_array[i];
+        			}
+        		}	
+        	}
+            res.status(200).send(tmp_array);
+            // console.log(things);
         }
     });
 });

@@ -176,7 +176,7 @@ app.get('/thingstodo_type', function(req, res) {
 //API gets thingstodo according Type trừ Hotel và Food
 app.get('/thingstodo_destination', function(req, res) {
 	ThingsToDo.find({
-        _type: { $nin: ["Hotels", "Food & Drink"] }
+        _type: { $ne: ["Hotels", "FoodnDrink"] }
     }).select().exec(function(err, things) {
         if (err) {
             return res.status(404).send('Not found');

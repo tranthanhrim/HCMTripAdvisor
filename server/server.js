@@ -383,5 +383,45 @@ app.get('/comments', function(req, res) {
     });
 });
 
+//API gets rate counting
+app.get('/ratescounting', function(req, res) {
+	var _idThing = req.query._idThing;
+	RatingSummary.find({_thingsToDoID: _idThing
+    }).exec(function(err, reviews) {
+        if (err) {
+            return res.status(404).send('Not found');
+            console.log('Failed!!');
+        } else {
+            res.status(200).send(reviews.length);
+            console.log(reviews);
+        }
+    });
+});
+
+//Lấy rate của 1 ng cho 1 things
+app.get('/personrating', function(req, res) {
+	var _idThing = req.query._idThing;
+	var _idUser = req.query._idUser;
+	User.find({_ma: _idUser
+    }).select(_rateID -_id).limit(1).exec(function(err, rateID1) {
+        if (err) {
+            return res.status(404).send('Not found');
+            console.log('Failed!!');
+        } else {
+		    RatingSummary.find({_ma: rateID1
+		    }).exec(function(err, rating) {
+		        if (err) {
+		            return res.status(404).send('Not found');
+		            console.log('Failed!!');
+		        } else {
+		        	if(rating1.length<0)
+		        		res.status(200).send(-1);
+		            res.status(200).send(rating);
+		        }
+		    });
+        }
+    });
+});
+
 var port = process.env.PORT || 3000;
 app.listen(port);

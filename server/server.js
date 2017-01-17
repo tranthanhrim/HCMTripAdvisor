@@ -131,6 +131,8 @@ app.put('/users/:ma', function(req, res) {
             user._email = _email;
             user._userName = _userName;
             user._avatar = _avatar;
+            user._rateID = _ma;
+            user._reviewID = _ma;
 
 
             user.save(function(err, user1) {
@@ -201,6 +203,7 @@ app.post('/ratings', function(req, res) {
     var ratingsummary = new RatingSummary({
     	_thingsToDoID: _idThing,
     	_rate: _rate,
+    	_idUser: _idUser,
     	_time: _time
     });
 
@@ -211,7 +214,7 @@ app.post('/ratings', function(req, res) {
     // 	ratingsummary._ma = rating1 + 1;
     // });
 
-    User.find({_ma: _idUser}).limit(1).exec(function(err, user1) {
+    User.findOne({_ma: _idUser}).exec(function(err, user1) {
     	var _getRateID = user1._rateID;
     	ratingsummary._ma = _getRateID;
 
@@ -230,7 +233,7 @@ app.post('/ratings', function(req, res) {
 	    });
 
 	    //Cập nhật lại điểm Rate trong ThingsToDo
-		ThingsToDo.find({_ma: _idThing}).limit(1).exec(function(err, rating1) {
+		ThingsToDo.find({_ma: _idThing, }).limit(1).exec(function(err, rating1) {
 			rating1._ratingCount = rating1._ratingCount +1;
 	    	rating1._ratingSummary = (rating1._ratingSummary + _rate)/2;
 
@@ -264,12 +267,16 @@ app.post('/comments', function(req, res) {
     var review = new Review({
     	_thingsToDoID: _idThing,
     	_content: _content,
-    	_time: _time
+    	_time: _time,
+    	_idUser: _idUser
     });
 
-    User.find({_ma: _idUser}).limit(1).exec(function(err, user1) {
+    User.findOne({_ma: _idUser}).exec(function(err, user1) {
     	var _getReviewID = user1._reviewID;
+
     	review._ma = _getReviewID;
+    	console.log(user1);
+    	console.log(review._ma);
 
     	// save the comment
 	    review.save(function(err) {
@@ -289,22 +296,18 @@ app.post('/comments', function(req, res) {
 });
 
 //Hàm tính khoảng cách
-var getDistanceFromLatLonInKm = function(lat1,lon1,lat2,lon2) {
-  var R = 10; 
-  var dLat = deg2rad(lat2-lat1);  // deg2rad below
-  var dLon = deg2rad(lon2-lon1); 
-  var a = 
-    Math.sin(dLat/2) * Math.sin(dLat/2) +
-    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
-    Math.sin(dLon/2) * Math.sin(dLon/2)
-    ; 
-  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
-  var d = R * c; // Distance in km
-  return d;
-}
-
-function deg2rad(deg) {
-  return deg * (Math.PI/180)
+var countdistance = function (lat1, lon1, lat2, lon2, unit) {
+	var radlat1 = Math.PI * lat1/180
+	var radlat2 = Math.PI * lat2/180
+	var theta = lon1-lon2
+	var radtheta = Math.PI * theta/180
+	var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+	dist = Math.acos(dist)
+	dist = dist * 180/Math.PI
+	dist = dist * 60 * 1.1515
+	if (unit=="K") { dist = dist * 1.609344 }
+	if (unit=="N") { dist = dist * 0.8684 }
+	return dist
 }
 
 //Lấy top 5 thingstodo
@@ -340,7 +343,7 @@ app.get('/nearme', function(req, res) {
 	        		_distance: null
 	        	};
         		object_tmp._idThing = things[i]._ma;		
-        		var distance = getDistanceFromLatLonInKm(lon, things[i]._map.longtitude, lat, things[i]._map.latitude);
+        		var distance = countdistance(lat, lon, things[i]._map.latitude, things[i]._map.longtitude, "K");
         		object_tmp._distance = distance;
         		tmp_array.push(object_tmp);
         	}
@@ -392,8 +395,8 @@ app.get('/ratescounting', function(req, res) {
             return res.status(404).send('Not found');
             console.log('Failed!!');
         } else {
-            res.status(200).send(reviews.length);
-            console.log(reviews);
+            res.status(200).send({count: reviews.length});
+            console.log(reviews.length);
         }
     });
 });
@@ -402,21 +405,30 @@ app.get('/ratescounting', function(req, res) {
 app.get('/personrating', function(req, res) {
 	var _idThing = req.query._idThing;
 	var _idUser = req.query._idUser;
-	User.find({_ma: _idUser
-    }).select(_rateID -_id).limit(1).exec(function(err, rateID1) {
+	User.findOne({_ma: _idUser
+    }).select('_rateID -_id').exec(function(err, rateID1) {
+    	console.log('RATE ID1', rateID1._rateID);
         if (err) {
-            return res.status(404).send('Not found');
+            return res.status(404).send('Not found1');
             console.log('Failed!!');
         } else {
-		    RatingSummary.find({_ma: rateID1
-		    }).exec(function(err, rating) {
+        	console.log('rateID1._rateID', rateID1._rateID);
+        	console.log('_idUser', _idUser);
+        	
+		    RatingSummary.findOne({_ma: rateID1._rateID, _idUser: _idUser
+		    }).sort({_time: -1}).exec(function(err, rating) {
 		        if (err) {
-		            return res.status(404).send('Not found');
+		            return res.status(404).send('Not found2');
 		            console.log('Failed!!');
 		        } else {
-		        	if(rating1.length<0)
-		        		res.status(200).send(-1);
-		            res.status(200).send(rating);
+		        	console.log(rating);
+		        	if(rating == null)
+		        	{
+		        		res.status(200).send({rate: -1});
+		        	}
+		        	else{
+		            	res.status(200).send({rate: rating._rate});
+		        	}
 		        }
 		    });
         }

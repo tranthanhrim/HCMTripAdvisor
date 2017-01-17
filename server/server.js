@@ -401,7 +401,7 @@ app.get('/ratescounting', function(req, res) {
     });
 });
 
-//Lấy rate của 1 ng cho 1 things
+//Lay rate của 1 ng cho 1 thing
 app.get('/personrating', function(req, res) {
 	var _idThing = req.query._idThing;
 	var _idUser = req.query._idUser;
@@ -415,7 +415,7 @@ app.get('/personrating', function(req, res) {
         	console.log('rateID1._rateID', rateID1._rateID);
         	console.log('_idUser', _idUser);
         	
-		    RatingSummary.findOne({_ma: rateID1._rateID, _idUser: _idUser
+		    RatingSummary.findOne({_ma: rateID1._rateID, _thingsToDoID: _idThing
 		    }).sort({_time: -1}).exec(function(err, rating) {
 		        if (err) {
 		            return res.status(404).send('Not found2');
@@ -431,6 +431,20 @@ app.get('/personrating', function(req, res) {
 		        	}
 		        }
 		    });
+        }
+    });
+});
+
+//API get ratingsummary of a thing
+app.get('/ratingsummary', function(req, res) {
+	var _idThing = req.query._idThing;
+	ThingsToDo.findOne({_ma: _idThing
+    }).select('_ratingSummary -_id').exec(function(err, things) {
+        if (err) {
+            return res.status(404).send('Not found');
+            console.log('Failed!!');
+        } else {
+            res.status(200).send(things);
         }
     });
 });

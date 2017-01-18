@@ -72,7 +72,9 @@ app.post('/users', function(req, res) {
         _ma: req.body.ma,
         _email: req.body.email,
         _userName: req.body.userName,
-        _avatar: req.body.avatar
+        _avatar: req.body.avatar,
+        _reviewID: req.body.ma,
+        _rateID: req.body.ma
     });
 
 

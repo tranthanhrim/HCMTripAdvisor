@@ -6,6 +6,8 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.LayerDrawable;
 import android.media.Image;
 import android.media.Rating;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -33,6 +35,7 @@ public class GroupedThingsToDoAdapter extends RecyclerView.Adapter<GroupedThings
     private ArrayList<Thing> listThings;
     FragmentManager fragmentManager;
     ArrayList<Bitmap> imagesLoaded;
+    ImageLoader imageLoader;
     public class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView ivImageGroupedThing;
         public TextView tvNameGroupedThing, tvTypeGroupedThing;
@@ -51,6 +54,7 @@ public class GroupedThingsToDoAdapter extends RecyclerView.Adapter<GroupedThings
         this.fragmentManager = fragmentManager;
         this.listThings = listThings;
         imagesLoaded = new ArrayList<>();
+        imageLoader = ImageLoader.getInstance();
     }
 
     @Override
@@ -62,7 +66,7 @@ public class GroupedThingsToDoAdapter extends RecyclerView.Adapter<GroupedThings
 
     @Override
     public void onBindViewHolder(GroupedThingsToDoAdapter.ViewHolder holder, int position) {
-        Thing thing = listThings.get(position);
+        final Thing thing = listThings.get(position);
         holder.tvNameGroupedThing.setText(thing.getPlaceName());
         holder.tvTypeGroupedThing.setText(thing.getType());
 
@@ -72,38 +76,49 @@ public class GroupedThingsToDoAdapter extends RecyclerView.Adapter<GroupedThings
         stars.getDrawable(1).setColorFilter(Color.parseColor("#CFCFCF"), PorterDuff.Mode.SRC_ATOP);
         stars.getDrawable(2).setColorFilter(Color.parseColor("#569441"), PorterDuff.Mode.SRC_ATOP);
 
-        if (imagesLoaded.size() > position){
-            holder.ivImageGroupedThing.setImageBitmap(imagesLoaded.get(position));
-        } else {
-            ImageLoader imageLoader = ImageLoader.getInstance();
-            imageLoader.displayImage(thing.get_thumnailLink(), holder.ivImageGroupedThing, new ImageLoadingListener() {
-                @Override
-                public void onLoadingStarted(String imageUri, View view) {
-
-                }
-
-                @Override
-                public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-
-                }
-
-                @Override
-                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                    imagesLoaded.add(loadedImage);
-                }
-
-                @Override
-                public void onLoadingCancelled(String imageUri, View view) {
-
-                }
-            });
-        }
+        imageLoader.displayImage(thing.get_thumnailLink(), holder.ivImageGroupedThing);
+//        if (imagesLoaded.size() > position){
+//            holder.ivImageGroupedThing.setImageBitmap(imagesLoaded.get(position));
+//        } else {
+//            imageLoader.displayImage(thing.get_thumnailLink(), holder.ivImageGroupedThing, new ImageLoadingListener() {
+//                @Override
+//                public void onLoadingStarted(String imageUri, View view) {
+//
+//                }
+//
+//                @Override
+//                public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+//
+//                }
+//
+//                @Override
+//                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+//                    imagesLoaded.add(loadedImage);
+//                }
+//
+//                @Override
+//                public void onLoadingCancelled(String imageUri, View view) {
+//
+//                }
+//            });
+//        }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fragmentManager.beginTransaction().replace(R.id.container,
-                        FragmentFactory.getInstance().getDetailThingFragment()).addToBackStack(null).commit();
+                Bundle bundle = new Bundle();
+                bundle.putString("id", thing.get_ma());
+                bundle.putString("thumbnail", thing.get_thumnailLink());
+                bundle.putString("detail", thing.get_detail());
+                bundle.putString("image", thing.getImage());
+                bundle.putString("nameThing", thing.getPlaceName());
+                bundle.putFloat("lon", thing.getMap().getLongtitude());
+                bundle.putFloat("lat", thing.getMap().getLatitude());
+                bundle.putFloat("rate", thing.get_ratingSummary());
+                bundle.putString("category", thing.getType());
+                Fragment fragment = FragmentFactory.getInstance().getDetailThingFragment();
+                fragment.setArguments(bundle);
+                fragmentManager.beginTransaction().replace(R.id.container,fragment).addToBackStack(null).commit();
             }
         });
     }

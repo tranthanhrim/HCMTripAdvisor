@@ -14,7 +14,12 @@ import com.example.tranthanhrim1995.hcmtripadvisor.Model.Comment;
 import com.example.tranthanhrim1995.hcmtripadvisor.R;
 import com.squareup.picasso.Picasso;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 
 /**
  * Created by tranthanhrim1995 on 1/12/2017.
@@ -54,11 +59,26 @@ public class ListCommentAdapter extends RecyclerView.Adapter<ListCommentAdapter.
     @Override
     public void onBindViewHolder(ListCommentAdapter.ViewHolder holder, int position) {
         Comment comment = listComment.get(position);
-        holder.tvContentComment.setText(comment.getComment());
+        holder.tvContentComment.setText(comment.get_content());
 //        holder.tvUsernameComment.setText(comment.getUsername());
-        holder.tvDateTimeComment.setText(comment.getDate() + " " + comment.getTime());
-        Picasso.with(context).load(comment.getAvatar())
-                .transform(new CircleTransform()).into(holder.ivAvatarComment);
+        SimpleDateFormat format = new SimpleDateFormat(
+                "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.CHINA);
+        format.setTimeZone(TimeZone.getTimeZone("UTC"));
+
+        Date date = null;
+        try {
+            date = format.parse(comment.get_time());
+            int year = date.getYear() + 1900;
+            int month = date.getMonth() + 1;
+            String dmy = date.getDate() + "/" + month + "/" + year;
+            holder.tvDateTimeComment.setText(dmy + " " + date.getHours() + ":" + date.getMinutes());
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        holder.tvUsernameComment.setText("");
+//        Picasso.with(context).load(comment.getAvatar())
+//                .transform(new CircleTransform()).into(holder.ivAvatarComment);
     }
 
     @Override

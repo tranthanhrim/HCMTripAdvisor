@@ -65,4 +65,7 @@ public interface WebServiceInterface {
 
     @GET("personrating")
     Call<Map> getPersonalRating(@Query("_idUser") String _idUser, @Query("_idThing") String _idThing);
+
+    @GET("ratingsummary")
+    Call<Map> getRatingSummary(@Query("_idThing") String _idThing);
 }

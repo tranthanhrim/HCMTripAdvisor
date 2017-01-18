@@ -29,10 +29,14 @@ import java.util.ArrayList;
 
 public class BaseListThingFragment extends Fragment {
 
-    ArrayList<Thing> listThing = new ArrayList<>();
+    ArrayList<Thing> listThingDestination = new ArrayList<>();
+    ArrayList<Thing> listThingHotel = new ArrayList<>();
     RecyclerView rvListThingsToDo;
-    ListThingsToDoAdapter mAdapter;
+    ListThingsToDoAdapter mAdapterDestination = null;
+    ListThingsToDoAdapter mAdapterHotel = null;
     FragmentManager fragmentManager;
+
+    ArrayList<Thing> listThingToShow = new ArrayList<>();
 
     String category = "";
 
@@ -56,11 +60,21 @@ public class BaseListThingFragment extends Fragment {
         LinearLayout listThingsToDoFragment = (LinearLayout)inflater.inflate(R.layout.fragment_list_things_to_do, null);
 
         rvListThingsToDo = (RecyclerView)listThingsToDoFragment.findViewById(R.id.rvListThingsToDo);
-        mAdapter = new ListThingsToDoAdapter(listThing, getActivity().getSupportFragmentManager());
+        if (mAdapterHotel == null) {
+            mAdapterHotel = new ListThingsToDoAdapter(listThingToShow, getActivity().getSupportFragmentManager());
+        }
+        if (mAdapterDestination == null) {
+            mAdapterDestination = new ListThingsToDoAdapter(listThingToShow, getActivity().getSupportFragmentManager());
+        }
+
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         rvListThingsToDo.setLayoutManager(mLayoutManager);
         rvListThingsToDo.setItemAnimator(new DefaultItemAnimator());
-        rvListThingsToDo.setAdapter(mAdapter);
+        if (category.equals("Destination")) {
+            rvListThingsToDo.setAdapter(mAdapterDestination);
+        } else {
+            rvListThingsToDo.setAdapter(mAdapterHotel);
+        }
 
         return listThingsToDoFragment;
     }
@@ -71,13 +85,21 @@ public class BaseListThingFragment extends Fragment {
 //        setHasOptionsMenu(true);
         Bundle bundle = getArguments();
         category = bundle.getString("category");
+        listThingToShow.clear();
         if (category.equals("Destination")) {
-            listThing.clear();
-            listThing.addAll(DataGlobal.getInstance().getListTopThingsTodo());
-            mAdapter.notifyDataSetChanged();
+            listThingDestination.clear();
+            listThingDestination.addAll(DataGlobal.getInstance().getListDestination());
+            rvListThingsToDo.setAdapter(mAdapterDestination);
+            mAdapterDestination.notifyDataSetChanged();
             ManageActionBar.getInstance().setTitle("Destination");
+            listThingToShow.addAll(DataGlobal.getInstance().getListDestination());
         } else if (category.equals("Hotel")) {
+            listThingHotel.clear();
+            listThingHotel.addAll(DataGlobal.getInstance().getListHotel());
+            rvListThingsToDo.setAdapter(mAdapterHotel);
+            mAdapterHotel.notifyDataSetChanged();
             ManageActionBar.getInstance().setTitle("Hotel");
+            listThingToShow.addAll(DataGlobal.getInstance().getListHotel());
         }
         ManageActionBar.getInstance().showButtonBack();
     }
@@ -91,12 +113,23 @@ public class BaseListThingFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_promotion) {
-
-        } else if (id == R.id.action_price_decrease) {
-
-        } else if (id == R.id.action_price_increase) {
-
+        if (id == R.id.action_all) {
+            listThingToShow.clear();
+            if (category.equals("Destination")) {
+                listThingToShow.addAll(DataGlobal.getInstance().getListDestination());
+                mAdapterDestination.notifyDataSetChanged();
+            } else if (category.equals("Hotel")) {
+                listThingToShow.addAll(DataGlobal.getInstance().getListHotel());
+                mAdapterHotel.notifyDataSetChanged();
+            }
+        }
+        else if (id == R.id.action_promotion) {
+            for(int i = listThingToShow.size() - 1; i >= 0; i--) {
+                if (!listThingToShow.get(i).get_isPromotion())
+                    listThingToShow.remove(i);
+            }
+            mAdapterDestination.notifyDataSetChanged();
+            mAdapterHotel.notifyDataSetChanged();
         }
         return super.onOptionsItemSelected(item);
     }

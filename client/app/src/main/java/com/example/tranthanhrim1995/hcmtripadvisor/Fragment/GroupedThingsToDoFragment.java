@@ -26,6 +26,7 @@ import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.example.tranthanhrim1995.hcmtripadvisor.Adapter.GroupedThingsToDoAdapter;
+import com.example.tranthanhrim1995.hcmtripadvisor.Adapter.ListThingsToDoAdapter;
 import com.example.tranthanhrim1995.hcmtripadvisor.Adapter.ThumbnailActivitiesAdapter;
 import com.example.tranthanhrim1995.hcmtripadvisor.DataGlobal;
 import com.example.tranthanhrim1995.hcmtripadvisor.FragmentFactory;
@@ -38,7 +39,11 @@ import com.example.tranthanhrim1995.hcmtripadvisor.WebServiceInterface;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -55,10 +60,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class GroupedThingsToDoFragment extends BaseFragment {
 
-    public ArrayList<Thing> listThing = new ArrayList<>();
+    ArrayList<Thing> listThing = new ArrayList<>();
     ArrayList<ThumbnailActivity> listThumbnailActivity = new ArrayList<>();
-    RecyclerView recyclerView, recyclerView2;
-    public GroupedThingsToDoAdapter mAdapter = null;
+    RecyclerView recyclerView, rvListDestination;
+//    RecyclerView recyclerView2;
+    GroupedThingsToDoAdapter mAdapter = null;
+    ListThingsToDoAdapter mAdapterDestination = null;
     ThumbnailActivitiesAdapter mAdapter2 = null;
     FragmentManager fragmentManager;
     NestedScrollView groupedThingFragment;
@@ -66,6 +73,7 @@ public class GroupedThingsToDoFragment extends BaseFragment {
     WebServiceInterface service;
     private Call<List<Thing>> callGetThings;
     private GetThingsDelegate getThingsDelegate;
+
 
     public GroupedThingsToDoFragment() {
 //        for(int i = 0; i < 7; i++) {
@@ -84,13 +92,24 @@ public class GroupedThingsToDoFragment extends BaseFragment {
         groupedThingFragment = (NestedScrollView)inflater.inflate(R.layout.fragment_grouped_things_to_do, null);
         ButterKnife.bind(this, groupedThingFragment);
         recyclerView = (RecyclerView) groupedThingFragment.findViewById(R.id.rvGroupedThings);
-        recyclerView2 = (RecyclerView) groupedThingFragment.findViewById(R.id.rvActivities);
+//        recyclerView2 = (RecyclerView) groupedThingFragment.findViewById(R.id.rvActivities);
         if (mAdapter == null) {
-            if (DataGlobal.getInstance().getListTopThingsTodo().size() == 0) {
+            if (DataGlobal.getInstance().getListTopThingsToDo().size() == 0) {
                 Toast.makeText(getActivity(), "Data is loading...", Toast.LENGTH_SHORT).show();
                 fragmentManager.popBackStack();
             } else {
-                mAdapter = new GroupedThingsToDoAdapter(DataGlobal.getInstance().getListTopThingsTodo(), fragmentManager);
+                ArrayList<Thing> temp = new ArrayList<>(DataGlobal.getInstance().getListTopThingsToDo());
+                Collections.sort(temp, new Comparator<Thing>() {
+                    @Override
+                    public int compare(Thing a, Thing b) {
+                        if (a.get_grade() > b.get_grade())
+                            return 1;
+                        else if (a.get_grade() < b.get_grade())
+                            return - 1;
+                        else return 0;
+                    }
+                });
+                mAdapter = new GroupedThingsToDoAdapter(temp, fragmentManager);
             }
         }
         mAdapter2 = new ThumbnailActivitiesAdapter(listThumbnailActivity);
@@ -107,38 +126,17 @@ public class GroupedThingsToDoFragment extends BaseFragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
 
-        recyclerView2.setLayoutManager(glayoutManager);
-        recyclerView2.setItemAnimator(new DefaultItemAnimator());
-        recyclerView2.setAdapter(mAdapter2);
+        rvListDestination = (RecyclerView) groupedThingFragment.findViewById(R.id.rvListDestination);
+        if (mAdapterDestination == null) {
+            mAdapterDestination = new ListThingsToDoAdapter(DataGlobal.getInstance().getListDestination(), getActivity().getSupportFragmentManager());
+        }
+        RecyclerView.LayoutManager mLayoutManager2 = new LinearLayoutManager(getActivity().getApplicationContext());
+        rvListDestination.setLayoutManager(mLayoutManager2);
+        rvListDestination.setItemAnimator(new DefaultItemAnimator());
+        rvListDestination.setAdapter(mAdapterDestination);
+
 
         return groupedThingFragment;
-
-//        btnListThingsToDo = (ImageView)groupedThingFragment.findViewById(R.id.btnListThingsToDo);
-//        btnListThingsToDo.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                fragmentManager.beginTransaction().replace(R.id.container,
-//                        FragmentFactory.getInstance().getListThingsToDoFragment()).addToBackStack(null).commit();
-//            }
-//        });
-
-//        if (listThing.size() == 0) {
-//            OkHttpClient client = new OkHttpClient.Builder()
-//                    .addInterceptor(newDefaultLogging())
-//                    .build();
-//
-//            Retrofit retrofit = new Retrofit.Builder()
-//                    .baseUrl("https://hcmtripadvisor.herokuapp.com/")
-//                    .addConverterFactory(GsonConverterFactory.create())
-//                    .client(client)
-//                    .build();
-//            service = retrofit.create(WebServiceInterface.class);
-//
-//            callGetThings = service.listThingsToDo();
-//            getThingsDelegate = new GetThingsDelegate(this);
-//            showProgressDialog();
-//            callGetThings.enqueue(getThingsDelegate);
-//        }
     }
 
     @OnClick(R.id.btnListDestination) void showListDestination() {

@@ -83,92 +83,92 @@
 
         </LinearLayout>
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/rvDestination"
+            android:id="@+id/rvListDestination"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <!--Activities-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50px"
-            android:orientation="horizontal"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="5dp"
-            android:gravity="center_vertical">
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/icon_small_ticket_2x"
-                android:layout_marginRight="10dp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/text_16_grey"
-                android:text="Activities"/>
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="15dp"
-                android:src="@drawable/green_chevron_right"
-                android:layout_marginRight="5dp"/>
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="50px"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:layout_marginTop="20dp"-->
+            <!--android:layout_marginBottom="5dp"-->
+            <!--android:gravity="center_vertical">-->
+            <!--<ImageView-->
+                <!--android:layout_width="20dp"-->
+                <!--android:layout_height="20dp"-->
+                <!--android:src="@drawable/icon_small_ticket_2x"-->
+                <!--android:layout_marginRight="10dp"/>-->
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--style="@style/text_16_grey"-->
+                <!--android:text="Activities"/>-->
+            <!--<View-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"/>-->
+            <!--<ImageView-->
+                <!--android:layout_width="30dp"-->
+                <!--android:layout_height="15dp"-->
+                <!--android:src="@drawable/green_chevron_right"-->
+                <!--android:layout_marginRight="5dp"/>-->
 
-        </LinearLayout>
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rvActivities"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        <!--</LinearLayout>-->
+        <!--<android.support.v7.widget.RecyclerView-->
+            <!--android:id="@+id/rvActivities"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"/>-->
 
         <!--Top Tours-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="70px"
-            android:orientation="horizontal"
-            android:layout_marginTop="25dp"
-            android:layout_marginBottom="5dp">
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/icon_small_ticket_2x"
-                android:layout_marginRight="10dp"/>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/text_16_grey"
-                    android:text="Top Ticktes and Tours"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_12"
-                    android:textColor="@color/Orange"
-                    android:text="from 2.000.000 VND"/>
-            </LinearLayout>
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="70px"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:layout_marginTop="25dp"-->
+            <!--android:layout_marginBottom="5dp">-->
+            <!--<ImageView-->
+                <!--android:layout_width="20dp"-->
+                <!--android:layout_height="20dp"-->
+                <!--android:src="@drawable/icon_small_ticket_2x"-->
+                <!--android:layout_marginRight="10dp"/>-->
+            <!--<LinearLayout-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:gravity="center_vertical"-->
+                <!--android:orientation="vertical">-->
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--style="@style/text_16_grey"-->
+                    <!--android:text="Top Ticktes and Tours"/>-->
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:textSize="@dimen/text_12"-->
+                    <!--android:textColor="@color/Orange"-->
+                    <!--android:text="from 2.000.000 VND"/>-->
+            <!--</LinearLayout>-->
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
+            <!--<View-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"/>-->
 
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="15dp"
-                android:src="@drawable/green_chevron_right"
-                android:layout_marginRight="5dp"
-                android:layout_gravity="center"/>
+            <!--<ImageView-->
+                <!--android:layout_width="30dp"-->
+                <!--android:layout_height="15dp"-->
+                <!--android:src="@drawable/green_chevron_right"-->
+                <!--android:layout_marginRight="5dp"-->
+                <!--android:layout_gravity="center"/>-->
 
-        </LinearLayout>
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rvTopTours"
-            android:scrollbars="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+        <!--</LinearLayout>-->
+        <!--<android.support.v7.widget.RecyclerView-->
+            <!--android:id="@+id/rvTopTours"-->
+            <!--android:scrollbars="vertical"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"/>-->
 
     </LinearLayout>
 

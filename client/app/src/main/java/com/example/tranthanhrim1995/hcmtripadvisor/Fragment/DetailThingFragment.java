@@ -1,6 +1,8 @@
 package com.example.tranthanhrim1995.hcmtripadvisor.Fragment;
 
 
+import android.app.Activity;
+import android.content.Intent;
 import android.app.DialogFragment;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -44,6 +46,8 @@ import com.example.tranthanhrim1995.hcmtripadvisor.Model.Thing;
 import com.example.tranthanhrim1995.hcmtripadvisor.Model.response.EndPointResponse;
 import com.example.tranthanhrim1995.hcmtripadvisor.R;
 import com.example.tranthanhrim1995.hcmtripadvisor.WebServiceInterface;
+import com.example.tranthanhrim1995.hcmtripadvisor.dialog.ListCommentDialogFragment;
+import com.example.tranthanhrim1995.hcmtripadvisor.dialog.RateDialogFragment;
 import com.kobakei.ratethisapp.RateThisApp;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -99,6 +103,8 @@ public class DetailThingFragment extends Fragment {
 
     ListCommentAdapter mAdapterComment = null;
     ArrayList<Comment> listComment = new ArrayList<>();
+
+    int currentRateCounting;
 
     public DetailThingFragment() {
         listHotel = new ArrayList<>();
@@ -199,6 +205,14 @@ public class DetailThingFragment extends Fragment {
 
     }
 
+//    @OnClick(R.id.btnSeeAllComments) void showAllComments() {
+//        Bundle bundle = new Bundle();
+//        bundle.putString("idThing", idThing);
+//        DialogFragment dialogFragment = FragmentFactory.getInstance().getListCommentDialogFragment();
+//        dialogFragment.setArguments(bundle);
+//        dialogFragment.show(getActivity().getFragmentManager(), "all-comments");
+//    }
+
     @OnClick(R.id.btnSeeAllComments) void showAllComments() {
         Bundle bundle = new Bundle();
         bundle.putString("idThing", idThing);
@@ -224,7 +238,7 @@ public class DetailThingFragment extends Fragment {
             public void onResponse(Call<EndPointResponse> call, Response<EndPointResponse> response) {
                 Date date = new Date();
                 listComment.add(new Comment("", "http://aminoapps.com/static/img/user-icon-placeholder.png",
-                        etContentComment.getText().toString(), date.toString()));
+                    etContentComment.getText().toString(), date.toString()));
                 if (listComment.size() > 2) {
                     listComment.remove(0);
                 }
@@ -239,12 +253,59 @@ public class DetailThingFragment extends Fragment {
         });
     }
 
+    Fragment fragment;
     @OnClick(R.id.btnClickRate) void clickRate() {
         Bundle bundle = new Bundle();
         bundle.putString("idThing", idThing);
-        DialogFragment dialogFragment = FragmentFactory.getInstance().getRateDialogFragment();
+        RateDialogFragment dialogFragment = FragmentFactory.getInstance().getRateDialogFragment();
         dialogFragment.setArguments(bundle);
-        dialogFragment.show(getActivity().getFragmentManager(), "rate-dialog");
+        dialogFragment.setTargetFragment(this, 21081995);
+        dialogFragment.show(getActivity().getSupportFragmentManager(), "rate-dialog");
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 21081995) {
+            if (resultCode == Activity.RESULT_OK) {
+                WebServiceInterface service = DataGlobal.getInstance().getService();
+                Call<Map> callRateCounting = service.getRateCounting(idThing);
+                callRateCounting.enqueue(new Callback<Map>() {
+                    @Override
+                    public void onResponse(Call<Map> call, Response<Map> response) {
+                        if (response.body() == null) {
+                            fragmentManager.popBackStack();
+                        }
+                        long longRate = Math.round((Double)response.body().get("count"));
+                        if (longRate <= 1) {
+                            tvRateCounting.setText(String.valueOf(longRate) + " rate");
+                        } else {
+                            tvRateCounting.setText(String.valueOf(longRate) + " rates");
+                        }
+                        currentRateCounting = (int)longRate;
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<Map> call, Throwable t) {
+
+                    }
+                });
+
+                Call<Map> callRateSummary = service.getRatingSummary(idThing);
+                callRateSummary.enqueue(new Callback<Map>() {
+                    @Override
+                    public void onResponse(Call<Map> call, Response<Map> response) {
+                        float summaryRate = Float.valueOf(response.body().get("_ratingSummary").toString());
+                        rbSummaryRateDetail.setRating(summaryRate);
+                    }
+
+                    @Override
+                    public void onFailure(Call<Map> call, Throwable t) {
+
+                    }
+                });
+            }
+        }
     }
 
     @Override
@@ -281,6 +342,9 @@ public class DetailThingFragment extends Fragment {
         callDetailThing.enqueue(new Callback<List<DetailThing>>() {
             @Override
             public void onResponse(Call<List<DetailThing>> call, Response<List<DetailThing>> response) {
+                if (response.body() == null) {
+                    fragmentManager.popBackStack();
+                }
                 detailThing = response.body().get(0);
                 tvNameThingDetail.setText(nameThing);
                 String openHour = "";
@@ -304,6 +368,9 @@ public class DetailThingFragment extends Fragment {
         callDetailImage.enqueue(new Callback<List<DetailImage>>() {
             @Override
             public void onResponse(Call<List<DetailImage>> call, Response<List<DetailImage>> response) {
+                if (response.body() == null) {
+                    fragmentManager.popBackStack();
+                }
                 DetailImage temp = response.body().get(0);
                 if (oldIdThing.equals(idThing) || idThing.equals("")) {
                     ivDetailImage1.setImageBitmap(imagesLoaded.get(0));
@@ -390,12 +457,16 @@ public class DetailThingFragment extends Fragment {
         callRateCounting.enqueue(new Callback<Map>() {
             @Override
             public void onResponse(Call<Map> call, Response<Map> response) {
+                if (response.body() == null) {
+                    fragmentManager.popBackStack();
+                }
                 long longRate = Math.round((Double)response.body().get("count"));
                 if (longRate <= 1) {
-                    tvRateCounting.setText(String.valueOf(longRate) + " Review");
+                    tvRateCounting.setText(String.valueOf(longRate) + " rate");
                 } else {
-                    tvRateCounting.setText(String.valueOf(longRate) + " Reviews");
+                    tvRateCounting.setText(String.valueOf(longRate) + " rates");
                 }
+                currentRateCounting = (int)longRate;
 
             }
 
@@ -409,6 +480,9 @@ public class DetailThingFragment extends Fragment {
         callListComment.enqueue(new Callback<List<Comment>>() {
             @Override
             public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
+                if (response.body() == null) {
+                    fragmentManager.popBackStack();
+                }
                 listComment.clear();
                 if (response.body().size() >= 2) {
                     listComment.add(response.body().get(0));
@@ -424,7 +498,6 @@ public class DetailThingFragment extends Fragment {
 
             }
         });
-
     }
 
 

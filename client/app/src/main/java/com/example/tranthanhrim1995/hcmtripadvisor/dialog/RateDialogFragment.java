@@ -1,9 +1,11 @@
 package com.example.tranthanhrim1995.hcmtripadvisor.dialog;
 
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.DialogFragment;
+import android.content.Intent;
+import android.support.v4.app.DialogFragment;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -21,6 +23,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.tranthanhrim1995.hcmtripadvisor.DataGlobal;
+import com.example.tranthanhrim1995.hcmtripadvisor.Fragment.DetailThingFragment;
 import com.example.tranthanhrim1995.hcmtripadvisor.Model.response.EndPointResponse;
 import com.example.tranthanhrim1995.hcmtripadvisor.R;
 
@@ -42,6 +45,11 @@ public class RateDialogFragment extends DialogFragment {
     String idThing;
     @BindView(R.id.rbRateValue)
     RatingBar rbRateValue;
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -72,6 +80,7 @@ public class RateDialogFragment extends DialogFragment {
                 callSendRate.enqueue(new Callback<EndPointResponse>() {
                     @Override
                     public void onResponse(Call<EndPointResponse> call, Response<EndPointResponse> response) {
+                        getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, getActivity().getIntent());
                         dismiss();
                     }
 
@@ -82,6 +91,7 @@ public class RateDialogFragment extends DialogFragment {
                 });
             }
         });
+
 
         //Button dismiss dialog
         TextView btnCancelDialogMessage = (TextView) dialog_rate.findViewById(R.id.btnCancelDialogMessage);
@@ -96,28 +106,6 @@ public class RateDialogFragment extends DialogFragment {
         builder.setView(dialog_rate);
         return builder.create();
     }
-
-//    @OnClick(R.id.btnRateSubmit) void rateSubmit(){
-//        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
-//        String idUser = sharedPref.getString(getActivity().getString(R.string.google_id), "");
-//        HashMap map = new HashMap();
-//        map.put("_idUser", idUser);
-//        map.put("_idThing", idThing);
-//        map.put("_rate", rbRateValue.getRating());
-//        Call<EndPointResponse> callSendRate = DataGlobal.getInstance().getService()
-//                .postRate(map);
-//        callSendRate.enqueue(new Callback<EndPointResponse>() {
-//            @Override
-//            public void onResponse(Call<EndPointResponse> call, Response<EndPointResponse> response) {
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<EndPointResponse> call, Throwable t) {
-//
-//            }
-//        });
-//    }
 
     @Override
     public void onResume() {

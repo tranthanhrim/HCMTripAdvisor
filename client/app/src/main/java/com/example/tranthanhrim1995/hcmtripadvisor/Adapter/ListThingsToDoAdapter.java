@@ -4,7 +4,9 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.LayerDrawable;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -54,6 +56,9 @@ public class ListThingsToDoAdapter extends RecyclerView.Adapter<ListThingsToDoAd
         @BindView(R.id.rbRate)
         RatingBar rbRate;
 
+        @BindView(R.id.ivIsPromotion)
+        ImageView ivIsPromotion;
+
         public ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, itemView);
@@ -77,47 +82,66 @@ public class ListThingsToDoAdapter extends RecyclerView.Adapter<ListThingsToDoAd
 
     @Override
     public void onBindViewHolder(ListThingsToDoAdapter.ViewHolder holder, int position) {
-        Thing thing = listThings.get(position);
+        final Thing thing = listThings.get(position);
         holder.tvThingName.setText(thing.getPlaceName());
         holder.rbRate.setRating(thing.get_ratingSummary());
         holder.tvRank.setText(thing.getType());
-        if (imagesLoaded.size() > position){
-            holder.ivThumbnail.setImageBitmap(imagesLoaded.get(position));
-        } else {
-            imageLoader.displayImage(thing.get_thumnailLink(), holder.ivThumbnail, new ImageLoadingListener() {
-                @Override
-                public void onLoadingStarted(String imageUri, View view) {
+        imageLoader.displayImage(thing.get_thumnailLink(), holder.ivThumbnail);
+//        if (imagesLoaded.size() > position){
+//            holder.ivThumbnail.setImageBitmap(imagesLoaded.get(position));
+//        } else {
+//            imageLoader.displayImage(thing.get_thumnailLink(), holder.ivThumbnail, new ImageLoadingListener() {
+//                @Override
+//                public void onLoadingStarted(String imageUri, View view) {
+//
+//                }
+//
+//                @Override
+//                public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+//
+//                }
+//
+//                @Override
+//                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+//                    imagesLoaded.add(loadedImage);
+//                }
+//
+//                @Override
+//                public void onLoadingCancelled(String imageUri, View view) {
+//
+//                }
+//            });
+//        }
 
-                }
-
-                @Override
-                public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-
-                }
-
-                @Override
-                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                    imagesLoaded.add(loadedImage);
-                }
-
-                @Override
-                public void onLoadingCancelled(String imageUri, View view) {
-
-                }
-            });
-        }
-
-//        holder.itemView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                fragmentManager.beginTransaction().replace(R.id.container,
-//                        FragmentFactory.getInstance().getDetailThingFragment()).commit();
-//            }
-//        });
         LayerDrawable stars = (LayerDrawable) holder.rbRate.getProgressDrawable();
         stars.getDrawable(0).setColorFilter(Color.parseColor("#CFCFCF"), PorterDuff.Mode.SRC_ATOP);
         stars.getDrawable(1).setColorFilter(Color.parseColor("#CFCFCF"), PorterDuff.Mode.SRC_ATOP);
         stars.getDrawable(2).setColorFilter(Color.parseColor("#569441"), PorterDuff.Mode.SRC_ATOP);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putString("id", thing.get_ma());
+                bundle.putString("thumbnail", thing.get_thumnailLink());
+                bundle.putString("detail", thing.get_detail());
+                bundle.putString("image", thing.getImage());
+                bundle.putString("nameThing", thing.getPlaceName());
+                bundle.putFloat("lon", thing.getMap().getLongtitude());
+                bundle.putFloat("lat", thing.getMap().getLatitude());
+                bundle.putFloat("rate", thing.get_ratingSummary());
+                bundle.putString("category", thing.getType());
+                Fragment fragment = FragmentFactory.getInstance().getDetailThingFragment();
+                fragment.setArguments(bundle);
+                fragmentManager.beginTransaction().replace(R.id.container,fragment).addToBackStack(null).commit();
+            }
+        });
+
+        if (thing.get_isPromotion()) {
+            holder.ivIsPromotion.setImageResource(R.drawable.star_yellow);
+        } else {
+            holder.ivIsPromotion.setImageDrawable(null);
+        }
 
     }
 

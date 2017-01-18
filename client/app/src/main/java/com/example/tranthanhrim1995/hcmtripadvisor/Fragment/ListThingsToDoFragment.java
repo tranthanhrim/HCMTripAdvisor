@@ -75,11 +75,9 @@ public class ListThingsToDoFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_nearest) {
+        if (id == R.id.action_all) {
 
-        } else if (id == R.id.action_price_decrease) {
-
-        } else if (id == R.id.action_price_increase) {
+        } else if (id == R.id.action_promotion) {
 
         }
         return super.onOptionsItemSelected(item);

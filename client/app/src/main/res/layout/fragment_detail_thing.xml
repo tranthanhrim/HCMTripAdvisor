@@ -44,9 +44,10 @@
             android:layout_height="180dp"
             android:orientation="horizontal">
             <ImageView
+                android:id="@+id/ivDetailImage1"
                 android:layout_width="220dp"
                 android:layout_height="match_parent"
-                android:src="@drawable/venice"
+                android:src="@drawable/placeholder_square"
                 android:scaleType="fitXY"
                 android:layout_marginRight="5dp"/>
             <LinearLayout
@@ -54,42 +55,44 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
                 <ImageView
+                    android:id="@+id/ivDetailImage2"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="0.5"
                     android:layout_marginBottom="2dp"
-                    android:src="@drawable/venice2"
+                    android:src="@drawable/placeholder_square"
                     android:scaleType="fitXY"/>
                 <ImageView
+                    android:id="@+id/ivDetailImage3"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="0.5"
                     android:layout_marginTop="2dp"
-                    android:src="@drawable/venice2"
+                    android:src="@drawable/placeholder_square"
                     android:scaleType="fitXY"/>
 
             </LinearLayout>
         </LinearLayout>
 
         <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:orientation="horizontal"-->
-            <!--android:gravity="center_vertical">-->
-            <!--<View-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_weight="1"/>-->
-            <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--style="@style/text_14_grey"-->
-                <!--android:text="See all images"/>-->
-            <!--<ImageView-->
-                <!--android:layout_width="30dp"-->
-                <!--android:layout_height="30dp"-->
-                <!--android:src="@drawable/icon_near_photo"-->
-                <!--android:layout_marginLeft="10dp"/>-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:gravity="center_vertical">-->
+        <!--<View-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_weight="1"/>-->
+        <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--style="@style/text_14_grey"-->
+        <!--android:text="See all images"/>-->
+        <!--<ImageView-->
+        <!--android:layout_width="30dp"-->
+        <!--android:layout_height="30dp"-->
+        <!--android:src="@drawable/icon_near_photo"-->
+        <!--android:layout_marginLeft="10dp"/>-->
 
         <!--</LinearLayout>-->
 
@@ -100,35 +103,35 @@
             android:layout_marginTop="10dp"
             android:orientation="vertical">
             <TextView
+                android:id="@+id/tvNameThingDetail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:text="Cu Chi Tunnels"
                 android:textColor="@color/LightBlack"
                 android:layout_marginBottom="5dp"/>
 
             <!--<LinearLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="30dp"-->
-                <!--android:orientation="horizontal"-->
-                <!--android:gravity="center_vertical">-->
-                <!--<RatingBar-->
-                    <!--android:id="@+id/rbRateDetail"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--style="?android:attr/ratingBarStyleSmall"-->
-                    <!--android:numStars="5"-->
-                    <!--android:stepSize="0.1"-->
-                    <!--android:isIndicator="true"-->
-                    <!--android:rating="4.5"-->
-                    <!--android:layout_marginRight="10dp"/>-->
-                <!--<TextView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--style="@style/text_14_grey"-->
-                    <!--android:textColor="@color/LightBlack"-->
-                    <!--android:text="1234 Reviews"/>-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="30dp"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:gravity="center_vertical">-->
+            <!--<RatingBar-->
+            <!--android:id="@+id/rbRateDetail"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--style="?android:attr/ratingBarStyleSmall"-->
+            <!--android:numStars="5"-->
+            <!--android:stepSize="0.1"-->
+            <!--android:isIndicator="true"-->
+            <!--android:rating="4.5"-->
+            <!--android:layout_marginRight="10dp"/>-->
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--style="@style/text_14_grey"-->
+            <!--android:textColor="@color/LightBlack"-->
+            <!--android:text="1234 Reviews"/>-->
             <!--</LinearLayout>-->
 
             <LinearLayout
@@ -137,101 +140,177 @@
                 android:orientation="horizontal"
                 android:layout_marginBottom="1dp">
                 <TextView
+                    android:id="@+id/tvHourDetail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/LightGray"
                     android:textSize="@dimen/text_14"
-                    android:text="Hours Today: 7:00 AM - 6:00 PM"/>
+                    android:text="Hours Today:"/>
 
             </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/DarkRed"
-                android:textSize="@dimen/text_14"
-                android:text="Price: 1.000.000 ~ 3.000.000 VND"/>
+            <!--<TextView-->
+            <!--android:id="@+id/tvPriceDetail"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textColor="@color/DarkRed"-->
+            <!--android:textSize="@dimen/text_14"-->
+            <!--android:text="Price: 1.000.000 ~ 3.000.000 VND"/>-->
 
             <TextView
+                android:id="@+id/tvDescriptionDetail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/text_14_grey"
                 android:layout_marginTop="10dp"
-                android:text="The tunnels of Củ Chi are an immense network of connecting underground tunnels located in the Củ Chi District of Ho Chi Minh City (Saigon), Vietnam, and are part of a much larger network of tunnels that underlie much of the country. The Củ Chi tunnels were the location of several military campaigns during the Vietnam War, and were the Viet Cong's base of operations for the Tết Offensive in 1968."/>
+                android:text="ed in."/>
 
         </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutInformationTitle"
+            android:layout_width="match_parent"
+            android:layout_height="50px"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="5dp"
+            android:gravity="center_vertical">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/partner_attribute_info_icon"
+                android:layout_marginRight="10dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/text_16_grey"
+                android:text="Information"/>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/layoutInformationDetail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/rounded_corner_green_border"
+            android:padding="10dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/icon_map"/>
+                <TextView
+                    android:id="@+id/tvlocationDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_16"
+                    android:textColor="@color/MainGreen"
+                    android:text="77 Knollwood Rd, White Plains, NY 1060777 Knollwood Rd, White Plains, NY 10607"/>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/MainGreen"
+                android:layout_margin="10dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/icon_phone"/>
+                <TextView
+                    android:id="@+id/tvPhoneDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_16"
+                    android:textColor="@color/MainGreen"
+                    android:text="+0123456789"/>
+            </LinearLayout>
+        </LinearLayout>
+
+
 
         <!--Hotels-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50px"
-            android:orientation="horizontal"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="5dp"
-            android:gravity="center_vertical">
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/icon_hotels_no_background"
-                android:layout_marginRight="10dp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/text_16_grey"
-                android:text="Hotels"/>
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
+        <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="50px"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:layout_marginBottom="5dp"-->
+        <!--android:gravity="center_vertical">-->
+        <!--<ImageView-->
+        <!--android:layout_width="20dp"-->
+        <!--android:layout_height="20dp"-->
+        <!--android:src="@drawable/icon_hotels_no_background"-->
+        <!--android:layout_marginRight="10dp"/>-->
+        <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--style="@style/text_16_grey"-->
+        <!--android:text="Hotels"/>-->
+        <!--<View-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_weight="1"/>-->
 
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="15dp"
-                android:src="@drawable/green_chevron_right"
-                android:layout_marginRight="5dp"/>
+        <!--<ImageView-->
+        <!--android:layout_width="30dp"-->
+        <!--android:layout_height="15dp"-->
+        <!--android:src="@drawable/green_chevron_right"-->
+        <!--android:layout_marginRight="5dp"/>-->
 
-        </LinearLayout>
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rvHotelDetailThing"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"/>
+        <!--</LinearLayout>-->
+        <!--<android.support.v7.widget.RecyclerView-->
+        <!--android:id="@+id/rvHotelDetailThing"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="10dp"/>-->
 
         <!--Food-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50px"
-            android:orientation="horizontal"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="5dp"
-            android:gravity="center_vertical">
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/inverted_food_drink"
-                android:layout_marginRight="10dp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/text_16_grey"
-                android:text="Foods"/>
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
+        <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="50px"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:layout_marginBottom="5dp"-->
+        <!--android:gravity="center_vertical">-->
+        <!--<ImageView-->
+        <!--android:layout_width="20dp"-->
+        <!--android:layout_height="20dp"-->
+        <!--android:src="@drawable/inverted_food_drink"-->
+        <!--android:layout_marginRight="10dp"/>-->
+        <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--style="@style/text_16_grey"-->
+        <!--android:text="Foods"/>-->
+        <!--<View-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_weight="1"/>-->
 
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="15dp"
-                android:src="@drawable/green_chevron_right"
-                android:layout_marginRight="5dp"/>
+        <!--<ImageView-->
+        <!--android:layout_width="30dp"-->
+        <!--android:layout_height="15dp"-->
+        <!--android:src="@drawable/green_chevron_right"-->
+        <!--android:layout_marginRight="5dp"/>-->
 
-        </LinearLayout>
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rvFoodDetailThing"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"/>
+        <!--</LinearLayout>-->
+        <!--<android.support.v7.widget.RecyclerView-->
+        <!--android:id="@+id/rvFoodDetailThing"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="10dp"/>-->
 
         <!--Review-->
         <LinearLayout
@@ -281,6 +360,7 @@
                 android:rating="4.5"/>
 
             <TextView
+                android:id="@+id/tvRateCounting"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/text_14_grey_bold"
@@ -323,6 +403,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <EditText
+                android:id="@+id/etContentComment"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -333,6 +414,7 @@
                 android:maxLength="200"
                 android:layout_marginRight="1dp"/>
             <TextView
+                android:id="@+id/btnSendComment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Comment"
@@ -341,80 +423,85 @@
                 android:padding="10dp"
                 android:background="@drawable/rounded_corner_green_bg"/>
         </LinearLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvListCommentDetail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </android.support.v7.widget.RecyclerView>
 
         <!--Comment 1~2-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="10dp">
-            <ImageView
-                android:id="@+id/avatarInfo"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@mipmap/ic_launcher"
-                android:scaleType="fitXY"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center_vertical"
-                android:layout_marginLeft="10dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/text_14_grey"
-                    android:text="A wiki is a iki is a website that provides collaborative modification of its content and structure  website that provides collaborative modification of its content and structure directly from the web browser"
-                    android:layout_marginBottom="3dp"/>
-                <!--android:maxLines="2"
-                    android:ellipsize="end"-->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="10sp"
-                    android:textColor="@color/LightGray"
-                    android:text="20/04/1995 17:20"/>
-            </LinearLayout>
+        <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:padding="10dp">-->
+        <!--<ImageView-->
+        <!--android:id="@+id/avatarInfo"-->
+        <!--android:layout_width="50dp"-->
+        <!--android:layout_height="50dp"-->
+        <!--android:src="@mipmap/ic_launcher"-->
+        <!--android:scaleType="fitXY"/>-->
+        <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="vertical"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:layout_marginLeft="10dp">-->
+        <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--style="@style/text_14_grey"-->
+        <!--android:text="A wiki is a iki is a website that provides collaborative modification of its content and structure  website that provides collaborative modification of its content and structure directly from the web browser"-->
+        <!--android:layout_marginBottom="3dp"/>-->
+        <!--&lt;!&ndash;android:maxLines="2"-->
+        <!--android:ellipsize="end"&ndash;&gt;-->
+        <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:textSize="10sp"-->
+        <!--android:textColor="@color/LightGray"-->
+        <!--android:text="20/04/1995 17:20"/>-->
+        <!--</LinearLayout>-->
 
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/LightGray"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="10dp">
-            <ImageView
-                android:id="@+id/avatarInfo2"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@mipmap/ic_launcher"
-                android:scaleType="fitXY"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center_vertical"
-                android:layout_marginLeft="10dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/text_14_grey"
-                    android:text="A wiki is a iki is a website that provides collaborative modification of its content and structure  website that provides collaborative modification of its content and structure directly from the web browser"
-                    android:layout_marginBottom="3dp"/>
-                <!--android:maxLines="2"
-                    android:ellipsize="end"-->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="10sp"
-                    android:textColor="@color/LightGray"
-                    android:text="20/04/1995 17:20"/>
-            </LinearLayout>
+        <!--</LinearLayout>-->
+        <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1dp"-->
+        <!--android:background="@color/LightGray"/>-->
+        <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:padding="10dp">-->
+        <!--<ImageView-->
+        <!--android:id="@+id/avatarInfo2"-->
+        <!--android:layout_width="50dp"-->
+        <!--android:layout_height="50dp"-->
+        <!--android:src="@mipmap/ic_launcher"-->
+        <!--android:scaleType="fitXY"/>-->
+        <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="vertical"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:layout_marginLeft="10dp">-->
+        <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--style="@style/text_14_grey"-->
+        <!--android:text="A wiki is a iki is a website that provides collaborative modification of its content and structure  website that provides collaborative modification of its content and structure directly from the web browser"-->
+        <!--android:layout_marginBottom="3dp"/>-->
+        <!--&lt;!&ndash;android:maxLines="2"-->
+        <!--android:ellipsize="end"&ndash;&gt;-->
+        <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:textSize="10sp"-->
+        <!--android:textColor="@color/LightGray"-->
+        <!--android:text="20/04/1995 17:20"/>-->
+        <!--</LinearLayout>-->
 
-        </LinearLayout>
+        <!--</LinearLayout>-->
         <!-- Button See all comment-->
         <LinearLayout
             android:id="@+id/btnSeeAllComments"
@@ -423,7 +510,8 @@
             android:padding="10dp"
             android:background="@color/MainGreen"
             android:gravity="center"
-            android:layout_marginBottom="15dp">
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

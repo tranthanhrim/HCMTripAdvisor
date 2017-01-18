@@ -172,6 +172,15 @@ public class NearMeFragment extends BaseFragment implements
     }
 
     @OnClick(R.id.layoutCurrentLocation) void showCurrentLocation() {
+        Bundle bundle = new Bundle();
+        String lon = String.valueOf(currentLocation.getLongitude());
+        String lat = String.valueOf(currentLocation.getLatitude());
+        bundle.putFloat("lon", Float.valueOf(lon));
+        bundle.putFloat("lat", Float.valueOf(lat));
+        bundle.putString("nameThing", "Your location");
+        Fragment fragment = FragmentFactory.getInstance().getMapThingFragment();
+        fragment.setArguments(bundle);
+        fragmentManager.beginTransaction().replace(R.id.container, fragment).addToBackStack(null).commit();
     }
 
     /*Google API Location*/
@@ -277,15 +286,38 @@ public class NearMeFragment extends BaseFragment implements
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_nearest) {
+        if (id == R.id.action_all) {
+            listThingToShow.clear();
+            if (typeOfThing.equals("All"))
+            {
+                listThingToShow.addAll(listThing);
+            } else if (typeOfThing.equals("Hotel")){
+                for(int i = 0; i < listThing.size(); i++) {
+                    if (listThing.get(i).getType().equals("Hotels")) {
+                        listThingToShow.add(listThing.get(i));
+                    }
+                }
+            } else if (typeOfThing.equals("Food")) {
+                for(int i = 0; i < listThing.size(); i++) {
+                    if (listThing.get(i).getType().equals("FoodnDrink")) {
+                        listThingToShow.add(listThing.get(i));
+                    }
+                }
+            } else {
+                for(int i = 0; i < listThing.size(); i++) {
+                    if (!listThing.get(i).getType().equals("Hotels") && !listThing.get(i).getType().equals("FoodnDrink")) {
+                        listThingToShow.add(listThing.get(i));
+                    }
+                }
+            }
 
         } else if (id == R.id.action_promotion) {
-
-        } else if (id == R.id.action_price_decrease) {
-
-        } else if (id == R.id.action_price_increase) {
-
+            for(int i = listThingToShow.size() - 1; i >= 0; i--) {
+                if (!listThingToShow.get(i).get_isPromotion())
+                    listThingToShow.remove(i);
+            }
         }
+        mAdapter.notifyDataSetChanged();
         return super.onOptionsItemSelected(item);
     }
 

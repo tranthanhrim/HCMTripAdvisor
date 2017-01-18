@@ -12,54 +12,67 @@
         android:src="@drawable/placeholder_square"
         android:scaleType="fitXY"
         android:layout_marginRight="10dp"/>
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center_vertical">
-        <TextView
-            android:id="@+id/tvThingName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/text_16_grey"
-            android:textStyle="bold"
-            android:text="The Reverie Saigon"
-            android:layout_marginBottom="2dp"/>
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/ivIsPromotion"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="5dp" />
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
             android:gravity="center_vertical"
-            android:layout_marginBottom="2dp">
-            <RatingBar
-                android:id="@+id/rbRate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="?android:attr/ratingBarStyleSmall"
-                android:numStars="5"
-                android:stepSize="0.1"
-                android:rating="3.5"/>
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true">
             <TextView
-                android:id="@+id/tvQuantityRate"
-                android:layout_width="wrap_content"
+                android:id="@+id/tvThingName"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/text_14_grey_bold"
-                android:text="1234 Reviews"/>
+                style="@style/text_16_grey"
+                android:textStyle="bold"
+                android:text="The Reverie Saigon"
+                android:layout_marginBottom="2dp"
+                android:layout_marginRight="30dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="2dp">
+                <RatingBar
+                    android:id="@+id/rbRate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:numStars="5"
+                    android:stepSize="0.1"
+                    android:rating="3.5"/>
+                <TextView
+                    android:id="@+id/tvQuantityRate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/text_14_grey_bold"/>
+            </LinearLayout>
+            <TextView
+                android:id="@+id/tvRank"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/text_14_grey"
+                android:text="# Hotel 1 of 443"/>
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--style="@style/text_14_grey"-->
+                <!--android:text="3.8km from current location"/>-->
+
         </LinearLayout>
-        <TextView
-            android:id="@+id/tvRank"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/text_14_grey"
-            android:text="# Hotel 1 of 443"/>
-        <!--<TextView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--style="@style/text_14_grey"-->
-            <!--android:text="3.8km from current location"/>-->
-
-    </LinearLayout>
-
+    </RelativeLayout>
 
 
 </LinearLayout>

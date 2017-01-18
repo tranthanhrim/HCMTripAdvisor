@@ -235,22 +235,13 @@ app.post('/ratings', function(req, res) {
 	    });
 
 	    //Cập nhật lại điểm Rate trong ThingsToDo
-		ThingsToDo.find({_ma: _idThing, }).limit(1).exec(function(err, rating1) {
+		ThingsToDo.findOne({_ma: _idThing}).exec(function(err, rating1) {
 			rating1._ratingCount = rating1._ratingCount +1;
 	    	rating1._ratingSummary = (rating1._ratingSummary + _rate)/2;
 
 	    	//Cập nhật lại cái ThingsToDo
 	    	rating1.save(function(err) {
-	        if (err) {
-	            res.status(400).json({
-	                'error': 'bad request'
-	            });
-	        }
 
-	        console.log('Rating saved successfully');
-	        res.status(201).send({
-	            'message': 'Rating created'
-	        });
 	    });
 	    });
     });
@@ -437,7 +428,7 @@ app.get('/personrating', function(req, res) {
     });
 });
 
-//API get ratingsummary of a thing
+//API gets ratingsummary of a thing
 app.get('/ratingsummary', function(req, res) {
 	var _idThing = req.query._idThing;
 	ThingsToDo.findOne({_ma: _idThing

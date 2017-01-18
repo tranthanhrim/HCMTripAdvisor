@@ -3,6 +3,8 @@ package com.example.tranthanhrim1995.hcmtripadvisor.Model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
+
 /**
  * Created by tranthanhrim1995 on 1/6/2017.
  */
@@ -19,6 +21,8 @@ public class Thing implements Parcelable{
     private String _thumnailLink;
     private float  _ratingSummary;
     private Location _map;
+    private ArrayList<String> _meal;
+    private boolean _isPromotion;
 
     public Thing() {}
 
@@ -40,6 +44,8 @@ public class Thing implements Parcelable{
         _thumnailLink = in.readString();
         _ratingSummary = in.readFloat();
         _map = in.readParcelable(Location.class.getClassLoader());
+        _meal = in.createStringArrayList();
+        _isPromotion = in.readByte() != 0;
     }
 
     public static final Creator<Thing> CREATOR = new Creator<Thing>() {
@@ -135,6 +141,23 @@ public class Thing implements Parcelable{
         this._ratingSummary = _ratingSummary;
     }
 
+    public ArrayList<String> get_meal() {
+        return _meal;
+    }
+
+    public void set_meal(ArrayList<String> _meal) {
+        this._meal = _meal;
+    }
+
+
+    public boolean get_isPromotion() {
+        return _isPromotion;
+    }
+
+    public void set_isPromotion(boolean _isPromotion) {
+        this._isPromotion = _isPromotion;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -152,5 +175,7 @@ public class Thing implements Parcelable{
         parcel.writeString(_thumnailLink);
         parcel.writeFloat(_ratingSummary);
         parcel.writeParcelable(_map, i);
+        parcel.writeStringList(_meal);
+        parcel.writeByte((byte) (_isPromotion ? 1 : 0));
     }
 }

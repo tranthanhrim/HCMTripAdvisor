@@ -1,61 +1,104 @@
 package com.example.tranthanhrim1995.hcmtripadvisor.Model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by tranthanhrim1995 on 1/12/2017.
  */
 
-public class Comment {
-    private String avatar;
-    private String comment;
-    private String date;
-    private String time;
-    private String username;
+public class Comment implements Parcelable{
+    private String _id;
+    private String _thingsToDoID;
+    private String _content;
+    private String _time;
+    private String _avatar;
+    private String _userName;
 
-    public Comment(String username, String avatar, String comment, String date, String time) {
-        this.avatar = avatar;
-        this.comment = comment;
-        this.date = date;
-        this.time = time;
-        this.username = username;
+    protected Comment(Parcel in) {
+        _id = in.readString();
+        _thingsToDoID = in.readString();
+        _content = in.readString();
+        _time = in.readString();
     }
 
-    public String getAvatar() {
-        return avatar;
+    public Comment(String _userName, String _avatar, String _content, String _time) {
+        this._userName = _userName;
+        this._avatar = _avatar;
+        this._content = _content;
+        this._time = _time;
     }
 
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
+    public static final Creator<Comment> CREATOR = new Creator<Comment>() {
+        @Override
+        public Comment createFromParcel(Parcel in) {
+            return new Comment(in);
+        }
+
+        @Override
+        public Comment[] newArray(int size) {
+            return new Comment[size];
+        }
+    };
+
+    public String get_id() {
+        return _id;
     }
 
-    public String getComment() {
-        return comment;
+    public void set_id(String _id) {
+        this._id = _id;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public String get_thingsToDoID() {
+        return _thingsToDoID;
     }
 
-    public String getDate() {
-        return date;
+    public void set_thingsToDoID(String _thingsToDoID) {
+        this._thingsToDoID = _thingsToDoID;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public String get_content() {
+        return _content;
     }
 
-    public String getTime() {
-        return time;
+    public void set_content(String _content) {
+        this._content = _content;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public String get_time() {
+        return _time;
     }
 
-    public String getUsername() {
-        return username;
+    public void set_time(String _time) {
+        this._time = _time;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public String get_avatar() {
+        return _avatar;
+    }
+
+    public void set_avatar(String _avatar) {
+        this._avatar = _avatar;
+    }
+
+    public String get_userName() {
+        return _userName;
+    }
+
+    public void set_userName(String _userName) {
+        this._userName = _userName;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(_id);
+        parcel.writeString(_thingsToDoID);
+        parcel.writeString(_content);
+        parcel.writeString(_time);
     }
 }

@@ -15,11 +15,12 @@ public class DetailThing implements Parcelable {
     private float _ratingSummary;
     private String _location;
     private String _description;
-    private Location _map;
     private ArrayList<String> _review;
-    private ArrayList<String> _openHour;
     private ArrayList<String> _goodFor;
     private ArrayList<String> _feature;
+    private ArrayList<String> _openHour;
+    private String _phoneNumber;
+
 
     protected DetailThing(Parcel in) {
         _id = in.readString();
@@ -27,11 +28,11 @@ public class DetailThing implements Parcelable {
         _ratingSummary = in.readFloat();
         _location = in.readString();
         _description = in.readString();
-        _map = in.readParcelable(Location.class.getClassLoader());
         _review = in.createStringArrayList();
-        _openHour = in.createStringArrayList();
         _goodFor = in.createStringArrayList();
         _feature = in.createStringArrayList();
+        _openHour = in.createStringArrayList();
+        _phoneNumber = in.readString();
     }
 
     public static final Creator<DetailThing> CREATOR = new Creator<DetailThing>() {
@@ -86,14 +87,6 @@ public class DetailThing implements Parcelable {
         this._description = _description;
     }
 
-    public Location get_map() {
-        return _map;
-    }
-
-    public void set_map(Location _map) {
-        this._map = _map;
-    }
-
     public ArrayList<String> get_review() {
         return _review;
     }
@@ -126,6 +119,14 @@ public class DetailThing implements Parcelable {
         this._feature = _feature;
     }
 
+    public String get_phoneNumber() {
+        return _phoneNumber;
+    }
+
+    public void set_phoneNumber(String _phoneNumber) {
+        this._phoneNumber = _phoneNumber;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -138,10 +139,10 @@ public class DetailThing implements Parcelable {
         parcel.writeFloat(_ratingSummary);
         parcel.writeString(_location);
         parcel.writeString(_description);
-        parcel.writeParcelable(_map, i);
         parcel.writeStringList(_review);
-        parcel.writeStringList(_openHour);
         parcel.writeStringList(_goodFor);
         parcel.writeStringList(_feature);
+        parcel.writeStringList(_openHour);
+        parcel.writeString(_phoneNumber);
     }
 }

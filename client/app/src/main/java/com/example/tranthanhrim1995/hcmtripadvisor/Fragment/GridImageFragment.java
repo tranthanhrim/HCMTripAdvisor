@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.example.tranthanhrim1995.hcmtripadvisor.Adapter.GridImageAdapter;
 import com.example.tranthanhrim1995.hcmtripadvisor.FragmentFactory;
 import com.example.tranthanhrim1995.hcmtripadvisor.MainActivity;
+import com.example.tranthanhrim1995.hcmtripadvisor.ManageActionBar;
 import com.example.tranthanhrim1995.hcmtripadvisor.R;
 
 import java.util.ArrayList;
@@ -33,11 +34,12 @@ public class GridImageFragment extends BaseFragment {
     GridImageAdapter mAdapter;
 
     String oldImage = "";
+    String currentImage = "";
 
     public GridImageFragment() {
-        String image = "https://firebasestorage.googleapis.com/v0/b/testuploadimage-8f69f.appspot.com/o/cuchi300.jpg?alt=media&token=782ccfd4-6bfd-4307-bf16-a1c70276f952";
-        images.add(image);
-        images.add(image);
+//        String image = "https://firebasestorage.googleapis.com/v0/b/testuploadimage-8f69f.appspot.com/o/cuchi300.jpg?alt=media&token=782ccfd4-6bfd-4307-bf16-a1c70276f952";
+//        images.add(image);
+//        images.add(image);
     }
 
     @Override
@@ -83,8 +85,14 @@ public class GridImageFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        ((MainActivity) getActivity()).getSupportActionBar().setTitle("Images");
-        ((MainActivity) getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
-        ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Bundle bundle = getArguments();
+        images.clear();
+        images.addAll(bundle.getStringArrayList("images"));
+        currentImage = bundle.getString("image");
+        mAdapter.notifyDataSetChanged();
+        ManageActionBar.getInstance().setTitle(bundle.getString("nameThing"));
+        ManageActionBar.getInstance().showButtonBack();
     }
+
+
 }

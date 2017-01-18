@@ -24,6 +24,7 @@ import com.example.tranthanhrim1995.hcmtripadvisor.FragmentFactory;
 import com.example.tranthanhrim1995.hcmtripadvisor.GoogleApiClientInstance;
 import com.example.tranthanhrim1995.hcmtripadvisor.MainActivity;
 import com.example.tranthanhrim1995.hcmtripadvisor.Model.User;
+import com.example.tranthanhrim1995.hcmtripadvisor.Model.response.EndPointResponse;
 import com.example.tranthanhrim1995.hcmtripadvisor.R;
 import com.example.tranthanhrim1995.hcmtripadvisor.WebServiceInterface;
 import com.google.android.gms.auth.api.Auth;
@@ -120,9 +121,7 @@ public class SigninFragment extends Fragment implements GoogleApiClient.OnConnec
 
     private void handleSignInResult(GoogleSignInResult result) {
         if (result.isSuccess()) {
-            // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
-
             SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
             SharedPreferences.Editor editor = sharedPref.edit();
             editor.putString(getString(R.string.google_id), acct.getId()).apply();
@@ -130,44 +129,28 @@ public class SigninFragment extends Fragment implements GoogleApiClient.OnConnec
             editor.putString(getString(R.string.email), acct.getEmail()).apply();
             editor.putString(getString(R.string.google_id_token), acct.getIdToken()).apply();
             editor.putString(getString(R.string.photo_url), acct.getPhotoUrl().toString()).apply();
+
             fragmentManager.beginTransaction().replace(R.id.container,
                     FragmentFactory.getInstance().getMainFragment()).commit();
-//            mStatusTextView.setText(getString(R.string.signed_in_fmt, acct.getDisplayName()));
-//            updateUI();
+
             MainActivity.updateInfoUserFromOutside(acct.getDisplayName(), acct.getEmail(), acct.getPhotoUrl().toString());
 
-//            WebServiceInterface service = DataGlobal.getInstance().getService();
-//            User user = new User(acct.getId(), acct.getEmail(), acct.getDisplayName(), acct.getPhotoUrl().toString());
-            OkHttpClient client = new OkHttpClient.Builder().build();
-
-            Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl(getActivity().getString(R.string.server_name))
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .client(client)
-                    .build();
-            WebServiceInterface service = retrofit.create(WebServiceInterface.class);
+            //Call API POST User
             User user = new User(acct.getId(), acct.getEmail(), acct.getDisplayName(), acct.getPhotoUrl().toString());
-//            service.createUser(acct.getId(), acct.getEmail(), acct.getDisplayName(), acct.getPhotoUrl().toString());
-//            service.createUser(user);
+            Call<EndPointResponse> callCreateUser = DataGlobal.getInstance().getService().createUser(user);
+            callCreateUser.enqueue(new Callback<EndPointResponse>() {
+                @Override
+                public void onResponse(Call<EndPointResponse> call, Response<EndPointResponse> response) {
+                    int a = 1;
+                }
 
+                @Override
+                public void onFailure(Call<EndPointResponse> call, Throwable t) {
+                    int a = 1;
+                }
+            });
         } else {
-            // Signed out, show unauthenticated UI.
-//            updateUI(false);
         }
-    }
-
-    private void updateUI() {
-        NavigationView navigationView = (NavigationView) nav_header_main.findViewById(R.id.nav_view);
-        View header = navigationView.getHeaderView(0);
-        ImageView avatar = (ImageView)header.findViewById(R.id.avatarInfo);
-        TextView username = (TextView)header.findViewById(R.id.usernameInfo);
-        TextView email = (TextView)header.findViewById(R.id.emailInfo);
-
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        username.setText(sharedPref.getString(getString(R.string.display_name), ""));
-        email.setText(sharedPref.getString(getString(R.string.email), ""));
-        Picasso.with(getActivity()).load(sharedPref.getString(getString(R.string.photo_url), ""))
-                .transform(new CircleTransform()).into(avatar);
     }
 
     @Override

@@ -11,16 +11,16 @@
         <item>@drawable/ic_home_hotels</item>
         <item>@drawable/ic_home_restaurants</item>
         <item>@drawable/ic_home_things_to_do</item>
-        <item>@drawable/ic_guide_icon_circle</item>
-        <item>@drawable/ic_home_forums</item>
+        <!--<item>@drawable/ic_guide_icon_circle</item>-->
+        <!--<item>@drawable/ic_home_forums</item>-->
     </array>
     <string-array name="list_label_main_screen_menu">
         <item>Near Me Now</item>
         <item>Hotels</item>
         <item>Food &amp; Drink</item>
         <item>Things to Do</item>
-        <item>Destination Guides</item>
-        <item>Forum</item>
+        <!--<item>Destination Guides</item>-->
+        <!--<item>Forum</item>-->
     </string-array>
 
     <array name="list_icon_things_to_do">
@@ -46,6 +46,7 @@
     </string-array>
 
     <string-array name="category_food">
+        <item>All</item>
         <item>Breakfast</item>
         <item>Lunch</item>
         <item>Dinner</item>
